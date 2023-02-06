@@ -32,13 +32,15 @@ export class PresentationService {
   }
 
   async updatePresentation(
-    orderId: number,
+    presentationId: number,
     updatePresentationDto: UpdatePresentationDto,
   ) {
-    const updatePresentation = await Presentation.findOneBy({ id: orderId });
+    const updatePresentation = await Presentation.findOneBy({
+      id: presentationId,
+    });
 
-    if (updatePresentationDto.langue)
-      updatePresentation.langage = updatePresentationDto.langue;
+    if (updatePresentationDto.langage)
+      updatePresentation.langage = updatePresentationDto.langage;
     if (updatePresentationDto.presentation)
       updatePresentation.presentation = updatePresentationDto.presentation;
     if (updatePresentationDto.nationalité)
