@@ -7,6 +7,7 @@ import { PresentationModule } from './presentation/presentation.module';
 import { UsersModule } from './users/users.module';
 import { LangagesModule } from './langages/langages.module';
 import { CompetencesModule } from './competences/competences.module';
+import 'reflect-metadata';
 
 @Module({
   imports: [

@@ -9,22 +9,22 @@ export class PresentationController {
 
   @Post()
   create(@Body() createPresentationDto: CreatePresentationDto) {
-    return this.presentationService.create(createPresentationDto);
+    return this.presentationService.createPresentation(createPresentationDto);
   }
 
   @Get()
   findAll() {
-    return this.presentationService.findAll();
+    return this.presentationService.findAllPresentation();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.presentationService.findOne(+id);
+    return this.presentationService.findOnePresentation(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePresentationDto: UpdatePresentationDto) {
-    return this.presentationService.update(+id, updatePresentationDto);
+    return this.presentationService.updatePresentation(+id, updatePresentationDto);
   }
 
   @Delete(':id')
