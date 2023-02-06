@@ -21,6 +21,7 @@ import 'reflect-metadata';
       database: process.env.DB_NAME,
       entities: ['dist/**/*.entity{ .ts,.js}'],
       synchronize: true,
+      logging: true,
     }),
 
     LangagesModule,

@@ -17,31 +17,34 @@ export class LangagesController {
   constructor(private readonly langagesService: LangagesService) {}
 
   @Post()
-  create(@Body() createLangageDto: CreateLangageDto, @Req() req) {
-    return this.langagesService.create(createLangageDto, req.user.user_id);
+  async create(@Body() createLangageDto: CreateLangageDto, @Req() req) {
+    const data = await this.langagesService.create(
+      createLangageDto /* , req.user.user_id */,
+    );
+    return data;
   }
 
   @Get()
-  findAll() {
-    return this.langagesService.findAll();
+  async findAll() {
+    return await this.langagesService.findAll();
   }
 
   @Get('/byUser')
-  findOne(@Param('id') id: string, @Req() req) {
-    return this.langagesService.findOne(+id);
+  async findOne(@Param('id') id: string, @Req() req) {
+    return await this.langagesService.findOne(+id);
   }
 
   @Patch('/update')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateLangageDto: UpdateLangageDto,
     @Req() req,
   ) {
-    return this.langagesService.update(+id, updateLangageDto);
+    return await this.langagesService.update(+id, updateLangageDto);
   }
 
   @Delete('/delete')
-  remove(@Param('id') id: string, @Req() req) {
-    return this.langagesService.remove(+id);
+  async remove(@Param('id') id: string, @Req() req) {
+    return await this.langagesService.remove(+id);
   }
 }

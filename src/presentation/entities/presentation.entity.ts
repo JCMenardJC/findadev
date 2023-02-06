@@ -3,6 +3,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -12,17 +13,17 @@ export class Presentation extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
-  userId: number;
+  /* @Column({ nullable: false })
+  userId: number; */
 
   @Column({ nullable: false })
-  langue: string;
+  langage: string;
 
   @Column({ nullable: false })
   presentation: string;
 
   @Column({ nullable: false })
-  nationnalitée: string;
+  nationalité: string;
 
   @Column()
   genre: string;
@@ -33,6 +34,6 @@ export class Presentation extends BaseEntity {
   @Column()
   hobbies: string;
 
-  @OneToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.id)
   user: number;
 }
