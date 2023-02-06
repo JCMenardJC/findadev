@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { CompetencesModule } from './competences/competences.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -17,7 +18,8 @@ import { AuthModule } from './auth/auth.module';
     synchronize: true,
   }),
   ConfigModule.forRoot(),
-  AuthModule
+  AuthModule,
+  CompetencesModule
   ],
 
   controllers: [AppController],
