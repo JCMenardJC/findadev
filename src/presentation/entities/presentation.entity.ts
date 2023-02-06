@@ -1,5 +1,5 @@
 import { User } from "src/users/entities/user.entity";
-import { BaseEntity, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 
@@ -41,6 +41,6 @@ export class Presentation extends BaseEntity {
 
 
     @OneToOne(() => User, (user) => user.id)
-    user: User
+    user:number
 
 }
