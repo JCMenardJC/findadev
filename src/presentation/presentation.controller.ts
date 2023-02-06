@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PresentationService } from './presentation.service';
 import { CreatePresentationDto } from './dto/create-presentation.dto';
 import { UpdatePresentationDto } from './dto/update-presentation.dto';
@@ -8,27 +18,51 @@ export class PresentationController {
   constructor(private readonly presentationService: PresentationService) {}
 
   @Post()
-  create(@Body() createPresentationDto: CreatePresentationDto) {
-    return this.presentationService.createPresentation(createPresentationDto);
+  async create(@Body() createPresentationDto: CreatePresentationDto) {
+    const data = await this.presentationService.createPresentation(
+      createPresentationDto,
+    );
+    if (!createPresentationDto) {
+      throw new BadRequestException('informations manquantes');
+    } else {
+      return data;
+    }
   }
 
   @Get()
   findAll() {
-    return this.presentationService.findAllPresentation();
+    const data = this.presentationService.findAllPresentation();
+    return data;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.presentationService.findOnePresentation(+id);
+  async findOne(@Param('id') id: number) {
+    const data = await this.presentationService.findOnePresentation(+id);
+
+    if (!data) {
+      throw new NotFoundException("l'ID ne correspond à aucune présentation");
+    }
+    return data;
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePresentationDto: UpdatePresentationDto) {
-    return this.presentationService.updatePresentation(+id, updatePresentationDto);
+  @Patch()
+  async findPresentationUpdate(
+    @Body() updatePresentationDto: UpdatePresentationDto,
+    id: number,
+  ) {
+    const data = await this.presentationService.findOnePresentation(+id);
+
+    if (!data) {
+      throw new NotFoundException("l'ID' ne correspond à aucune présentation");
+    }
+    return await this.presentationService.updatePresentation(
+      data.id,
+      updatePresentationDto,
+    );
   }
 
-  @Delete(':id')
+  @Delete()
   remove(@Param('id') id: string) {
-    return this.presentationService.remove(+id);
+    return this.presentationService.removePresentation(+id);
   }
 }
