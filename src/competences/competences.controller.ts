@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CompetencesService } from './competences.service';
 import { CreateCompetenceDto } from './dto/create-competence.dto';
 import { UpdateCompetenceDto } from './dto/update-competence.dto';
@@ -19,11 +27,14 @@ export class CompetencesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.competencesService.findOne(+id);
+    return this.competencesService.findOneById(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCompetenceDto: UpdateCompetenceDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateCompetenceDto: UpdateCompetenceDto,
+  ) {
     return this.competencesService.update(+id, updateCompetenceDto);
   }
 
