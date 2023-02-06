@@ -7,7 +7,7 @@ export class CreatePresentationDto {
 
   @IsNotEmpty()
   @IsString()
-  langue: string;
+  langage: string;
 
   @IsNotEmpty()
   @IsString()
@@ -15,7 +15,7 @@ export class CreatePresentationDto {
 
   @IsNotEmpty()
   @IsString()
-  nationnalitée: string;
+  nationalité: string;
 
   @IsOptional()
   @IsString()

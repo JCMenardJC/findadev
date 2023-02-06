@@ -6,50 +6,58 @@ import { Presentation } from './entities/presentation.entity';
 @Injectable()
 export class PresentationService {
   async createPresentation(createPresentationDto: CreatePresentationDto) {
-
     const newPresentation = Presentation.create({
-      langue: createPresentationDto.langue,
+      langage: createPresentationDto.langage,
       presentation: createPresentationDto.presentation,
-      nationnalitée: createPresentationDto.nationnalitée,
+      nationalité: createPresentationDto.nationalité,
       genre: createPresentationDto.genre,
       age: createPresentationDto.age,
-      hobbies: createPresentationDto.hobbies
-    })
+      hobbies: createPresentationDto.hobbies,
+    });
 
-    const presentation = await Presentation.save(newPresentation)
+    const presentation = await Presentation.save(newPresentation);
     return presentation;
-
   }
 
   async findAllPresentation() {
-    const presentation = await Presentation.find()
+    const presentation = await Presentation.find();
     return presentation;
-
   }
 
   async findOnePresentation(presentationId: number) {
     const presentation = await Presentation.findOneBy({
-      id: presentationId
-    })
+      id: presentationId,
+    });
     return presentation;
   }
 
-  async updatePresentation(presentationId: number, updatePresentationDto: UpdatePresentationDto) {
-    const updatePresentation = await Presentation.findOneBy({ id: presentationId });
+  async updatePresentation(
+    presentationId: number,
+    updatePresentationDto: UpdatePresentationDto,
+  ) {
+    const updatePresentation = await Presentation.findOneBy({
+      id: presentationId,
+    });
 
-    if (updatePresentationDto.langue) updatePresentation.langue = updatePresentationDto.langue;
-    if (updatePresentationDto.presentation) updatePresentation.presentation = updatePresentationDto.presentation;
-    if (updatePresentationDto.nationnalitée) updatePresentation.nationnalitée = updatePresentationDto.nationnalitée;
-    if (updatePresentationDto.genre) updatePresentation.genre = updatePresentationDto.genre;
-    if (updatePresentationDto.age) updatePresentation.age = updatePresentationDto.age;
-    if (updatePresentationDto.hobbies) updatePresentation.hobbies = updatePresentationDto.hobbies;
+    if (updatePresentationDto.langage)
+      updatePresentation.langage = updatePresentationDto.langage;
+    if (updatePresentationDto.presentation)
+      updatePresentation.presentation = updatePresentationDto.presentation;
+    if (updatePresentationDto.nationalité)
+      updatePresentation.nationalité = updatePresentationDto.nationalité;
+    if (updatePresentationDto.genre)
+      updatePresentation.genre = updatePresentationDto.genre;
+    if (updatePresentationDto.age)
+      updatePresentation.age = updatePresentationDto.age;
+    if (updatePresentationDto.hobbies)
+      updatePresentation.hobbies = updatePresentationDto.hobbies;
 
-    const order = await Presentation.save(updatePresentation)
-    return order
+    const order = await Presentation.save(updatePresentation);
+    return order;
   }
 
   async remove(user: number): Promise<Presentation | undefined> {
-    const savePresentation = await Presentation.findOneBy({ user});
+    const savePresentation = await Presentation.findOneBy({ user });
     await Presentation.delete({ user });
     const verifPresentation = await Presentation.findOneBy({ user });
     if (verifPresentation) {

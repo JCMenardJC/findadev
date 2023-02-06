@@ -5,6 +5,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -44,11 +45,4 @@ export class User extends BaseEntity {
 
   @Column({ type: 'varchar' })
   pays: string;
-
-  @OneToMany(() => Langage, (langage) => langage.id)
-  langage: number;
-  @OneToMany(() => Competence, (competence) => competence.id)
-  competence: number;
-  @OneToOne(() => Presentation, (presentation) => presentation.id)
-  presentation: number;
 }

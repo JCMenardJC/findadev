@@ -16,16 +16,13 @@ export class Presentation extends BaseEntity {
   userId: number;
 
   @Column({ nullable: false })
-  langue: string;
-
-  @Column({ nullable: false })
-  langue: string;
+  langage: string;
 
   @Column({ nullable: false })
   presentation: string;
 
   @Column({ nullable: false })
-  nationnalitée: string;
+  nationalité: string;
 
   @Column()
   genre: string;
@@ -38,7 +35,4 @@ export class Presentation extends BaseEntity {
 
   @OneToOne(() => User, (user) => user.id)
   user: number;
-
-  @OneToOne(() => User)
-  user: User;
 }
