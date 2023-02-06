@@ -17,7 +17,12 @@ export class LangagesService {
       i++;
     }
     await Langage.save(newLangage);
+    const listData = await Langage.find();
+    const newData = listData[listData.length - 1];
 
+    if (newData) {
+      return newData;
+    }
     return undefined;
   }
 
