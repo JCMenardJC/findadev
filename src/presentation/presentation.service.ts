@@ -3,6 +3,7 @@ import { CreatePresentationDto } from './dto/create-presentation.dto';
 import { UpdatePresentationDto } from './dto/update-presentation.dto';
 import { Presentation } from './entities/presentation.entity';
 
+
 @Injectable()
 export class PresentationService {
   async createPresentation(createPresentationDto: CreatePresentationDto) {
@@ -48,7 +49,7 @@ export class PresentationService {
     return order
   }
 
-  async remove(user: number): Promise<Presentation | undefined> {
+  async removePresentation(user: number): Promise<Presentation | undefined> {
     const savePresentation = await Presentation.findOneBy({ user});
     await Presentation.delete({ user });
     const verifPresentation = await Presentation.findOneBy({ user });
