@@ -1,28 +1,37 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { type } from 'os';
+import { User } from 'src/users/entities/user.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Langage extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
+  @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn()
   user: number;
 
-  @Column()
+  @Column('varchar')
   langage_1: string;
 
-  @Column()
+  @Column({ type: 'varchar', default: null })
   langage_2: string;
 
-  @Column()
+  @Column({ type: 'varchar', default: null })
   langage_3: string;
 
-  @Column()
+  @Column({ type: 'varchar', default: null })
   langage_4: string;
 
-  @Column()
+  @Column({ type: 'varchar', default: null })
   langage_5: string;
 
-  @Column()
+  @Column({ type: 'varchar', default: null })
   langage_6: string;
 }

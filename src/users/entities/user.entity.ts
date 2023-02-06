@@ -1,15 +1,4 @@
-import { Competence } from 'src/competences/entities/competence.entity';
-import { Langage } from 'src/langages/entities/langage.entity';
-import { Presentation } from 'src/presentation/entities/presentation.entity';
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()

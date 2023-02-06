@@ -12,7 +12,6 @@ import {
 import { PresentationService } from './presentation.service';
 import { CreatePresentationDto } from './dto/create-presentation.dto';
 import { UpdatePresentationDto } from './dto/update-presentation.dto';
-import { UsersService } from 'src/users/users.service';
 
 @Controller('presentation')
 export class PresentationController {
