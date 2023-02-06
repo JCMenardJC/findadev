@@ -8,11 +8,7 @@ import { UsersService } from 'src/users/users.service';
 
 @Controller('presentation')
 export class PresentationController {
-  constructor(
-    private readonly presentationService: PresentationService,
-    private readonly userService: UsersService
-
-  ) { }
+  constructor(private readonly presentationService: PresentationService) { }
 
 
   @Post()
