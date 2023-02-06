@@ -34,6 +34,9 @@ export class UsersService {
   async findOne(id: number) {
     return await User.findOneBy({ id: id });
   }
+  async findOneMail(mail: string) {
+    return await User.findOneBy({ mail: mail });
+  }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     await User.update(id, updateUserDto);

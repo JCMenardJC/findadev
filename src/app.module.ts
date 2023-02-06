@@ -7,7 +7,9 @@ import { PresentationModule } from './presentation/presentation.module';
 import { UsersModule } from './users/users.module';
 import { LangagesModule } from './langages/langages.module';
 import { CompetencesModule } from './competences/competences.module';
+import { FriendsModule } from './friends/friends.module';
 import 'reflect-metadata';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -28,6 +30,7 @@ import 'reflect-metadata';
     PresentationModule,
     UsersModule,
     CompetencesModule,
+    AuthModule,
   ],
 
   controllers: [AppController],
