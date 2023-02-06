@@ -8,9 +8,9 @@ import { UsersModule } from './users/users.module';
 import { LangagesModule } from './langages/langages.module';
 import { CompetencesModule } from './competences/competences.module';
 
-
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -21,9 +21,11 @@ import { CompetencesModule } from './competences/competences.module';
       entities: ['dist/**/*.entity{ .ts,.js}'],
       synchronize: true,
     }),
-    ConfigModule.forRoot(),
+
     LangagesModule,
-    PresentationModule,UsersModule,  CompetencesModule
+    PresentationModule,
+    UsersModule,
+    CompetencesModule,
   ],
 
   controllers: [AppController],
