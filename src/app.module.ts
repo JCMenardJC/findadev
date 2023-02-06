@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { PresentationModule } from './presentation/presentation.module';
 import { LangagesModule } from './langages/langages.module';
 
 @Module({
@@ -19,6 +20,7 @@ import { LangagesModule } from './langages/langages.module';
     }),
     ConfigModule.forRoot(),
     LangagesModule,
+    PresentationModule,
   ],
 
   controllers: [AppController],
