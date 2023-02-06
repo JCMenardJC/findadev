@@ -1,5 +1,4 @@
-import { IsNotEmpty } from "class-validator";
-import { IsNumber, IsOptional, IsString } from "class-validator/types/decorator/decorators";
+import { IsNotEmpty,IsNumber, IsOptional, IsString  } from "class-validator";
 
 export class CreatePresentationDto {
 

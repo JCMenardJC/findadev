@@ -1,3 +1,4 @@
+import { User } from "src/users/entities/user.entity";
 import { BaseEntity, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -7,11 +8,6 @@ export class Presentation extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number
-
-
-    @Column({ nullable: false })
-    userId: number
-
 
 
     @Column({ nullable: false })
@@ -44,19 +40,7 @@ export class Presentation extends BaseEntity {
 
 
 
-    @OneToOne(() => User)
+    @OneToOne(() => User, (user) => user.id)
     user: User
-
-
-
-    @OneToMany(() => Languages, (language) => language.presentation)
-    language: Languages[]
-
-
-
-    @OneToMany(() => Competences, (competence) => competence.presentation)
-    competences: Competences[]
-
-
 
 }

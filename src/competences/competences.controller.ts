@@ -19,7 +19,7 @@ export class CompetencesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.competencesService.findOne(+id);
+    return this.competencesService.findOneById(+id);
   }
 
   @Patch(':id')
