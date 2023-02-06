@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { PresentationModule } from './presentation/presentation.module';
 import { UsersModule } from './users/users.module';
+import { LangagesModule } from './langages/langages.module';
+
 
 @Module({
   imports: [
@@ -15,12 +17,12 @@ import { UsersModule } from './users/users.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [],
+      entities: ['dist/**/*.entity{ .ts,.js}'],
       synchronize: true,
     }),
     ConfigModule.forRoot(),
-    PresentationModule,
-    UsersModule,
+    LangagesModule,
+    PresentationModule,UsersModule
   ],
 
   controllers: [AppController],
