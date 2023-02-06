@@ -18,21 +18,37 @@ export class Presentation extends BaseEntity {
   @Column({ nullable: false })
   langue: string;
 
-  @Column({ nullable: false })
-  presentation: string;
+    @Column({ nullable: false })
+    langage: string
 
-  @Column({ nullable: false })
-  nationnalitée: string;
 
-  @Column()
-  genre: string;
 
-  @Column()
-  age: number;
+    @Column({ nullable: false })
+    presentation: string
 
-  @Column()
-  hobbies: string;
 
-  @OneToOne(() => User, (user) => user.id)
-  user: User;
+
+    @Column({ nullable: false })
+    nationalité: string
+
+
+
+    @Column()
+    genre: string
+
+
+
+    @Column()
+    age: number
+
+
+
+    @Column()
+    hobbies: string
+
+
+
+    @OneToOne(() => User, (user) => user.id)
+    user: User
+
 }

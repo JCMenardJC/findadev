@@ -1,7 +1,7 @@
 import { IsString, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateLangageDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   user: number;
   @IsNotEmpty()

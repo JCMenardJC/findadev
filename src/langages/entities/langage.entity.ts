@@ -1,10 +1,11 @@
+import { type } from 'os';
 import { User } from 'src/users/entities/user.entity';
 import {
   BaseEntity,
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -12,25 +13,25 @@ import {
 export class Langage extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-  @OneToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.id)
   @JoinColumn()
   user: number;
 
   @Column('varchar')
   langage_1: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', default: null })
   langage_2: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', default: null })
   langage_3: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', default: null })
   langage_4: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', default: null })
   langage_5: string;
 
-  @Column('varchar')
+  @Column({ type: 'varchar', default: null })
   langage_6: string;
 }

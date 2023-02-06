@@ -6,11 +6,11 @@ import { Langage } from './entities/langage.entity';
 @Injectable()
 export class LangagesService {
   async create(
-    createLangageDto: CreateLangageDto,
-    user_id: number,
+    createLangageDto: CreateLangageDto /* ,
+    user_id: number, */,
   ): Promise<Langage | undefined> {
     const newLangage = new Langage();
-    newLangage.user = user_id;
+    newLangage.user = createLangageDto.user;
     let i = 1;
     while (createLangageDto[`langage_${i}`]) {
       newLangage[`langage_${i}`] = createLangageDto[`langage_${i}`];
