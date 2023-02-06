@@ -34,8 +34,8 @@ export class PresentationService {
     return presentation;
   }
 
-  async updatePresentation(orderId: number, updatePresentationDto: UpdatePresentationDto) {
-    const updatePresentation = await Presentation.findOneBy({ id: orderId });
+  async updatePresentation(presentationId: number, updatePresentationDto: UpdatePresentationDto) {
+    const updatePresentation = await Presentation.findOneBy({ id: presentationId });
 
     if (updatePresentationDto.langue) updatePresentation.langue = updatePresentationDto.langue;
     if (updatePresentationDto.presentation) updatePresentation.presentation = updatePresentationDto.presentation;
@@ -48,7 +48,13 @@ export class PresentationService {
     return order
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} presentation`;
+  async remove(user: number): Promise<Presentation | undefined> {
+    const savePresentation = await Presentation.findOneBy({ user});
+    await Presentation.delete({ user });
+    const verifPresentation = await Presentation.findOneBy({ user });
+    if (verifPresentation) {
+      return undefined;
+    }
+    return savePresentation;
   }
 }

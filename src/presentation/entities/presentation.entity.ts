@@ -3,7 +3,6 @@ import {
   BaseEntity,
   Column,
   Entity,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -35,5 +34,5 @@ export class Presentation extends BaseEntity {
   hobbies: string;
 
   @OneToOne(() => User, (user) => user.id)
-  user: User;
+  user: number;
 }
