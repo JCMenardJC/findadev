@@ -12,7 +12,6 @@ export class Competence extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'integer' })
   @ManyToOne(() => User, (user) => user.id, { eager: true })
   user: number;
 
