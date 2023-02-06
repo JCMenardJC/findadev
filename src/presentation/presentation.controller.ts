@@ -8,15 +8,18 @@ import {
   Delete,
   BadRequestException,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { PresentationService } from './presentation.service';
 import { CreatePresentationDto } from './dto/create-presentation.dto';
 import { UpdatePresentationDto } from './dto/update-presentation.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('presentation')
 export class PresentationController {
-  constructor(private readonly presentationService: PresentationService) {}
+  constructor(private readonly presentationService: PresentationService) { }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createPresentationDto: CreatePresentationDto) {
     const data = await this.presentationService.createPresentation(
@@ -29,11 +32,13 @@ export class PresentationController {
     }
   }
 
+
   @Get()
   findAll() {
     const data = this.presentationService.findAllPresentation();
     return data;
   }
+
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
@@ -45,6 +50,8 @@ export class PresentationController {
     return data;
   }
 
+
+  @UseGuards(JwtAuthGuard)
   @Patch()
   async findPresentationUpdate(
     @Body() updatePresentationDto: UpdatePresentationDto,
@@ -61,6 +68,8 @@ export class PresentationController {
     );
   }
 
+
+  @UseGuards(JwtAuthGuard)
   @Delete()
   remove(@Param('id') id: string) {
     return this.presentationService.removePresentation(+id);
