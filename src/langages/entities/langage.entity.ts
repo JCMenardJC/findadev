@@ -7,8 +7,10 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 
+@Unique(['user'])
 @Entity()
 export class Langage extends BaseEntity {
   @PrimaryGeneratedColumn()

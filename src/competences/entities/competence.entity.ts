@@ -5,9 +5,12 @@ import {
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 
+@Unique(['user'])
 @Entity()
+@Unique(['user'])
 export class Competence extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

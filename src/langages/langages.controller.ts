@@ -6,45 +6,113 @@ import {
   Patch,
   Param,
   Delete,
-  Req,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { LangagesService } from './langages.service';
 import { CreateLangageDto } from './dto/create-langage.dto';
 import { UpdateLangageDto } from './dto/update-langage.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Langage } from './entities/langage.entity';
+import { EMessageStatus, EStatus } from 'src/constants/enum';
 
 @Controller('langages')
 export class LangagesController {
   constructor(private readonly langagesService: LangagesService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() createLangageDto: CreateLangageDto, @Req() req) {
+  async create(@Body() createLangageDto: CreateLangageDto, @Request() req) {
+    const dataCheck = await Langage.findOneBy({ user: req.user.user_id });
+    if (dataCheck) {
+      return {
+        status: EStatus.FAIL,
+        message: 'Vous avez déjà déclaré vos langages connus !!',
+      };
+    }
     const data = await this.langagesService.create(
-      createLangageDto /* , req.user.user_id */,
+      createLangageDto,
+      req.user.user_id,
     );
-    return data;
+
+    return {
+      status: EStatus.FAIL,
+      message: EMessageStatus.createdOK,
+      data: data,
+    };
   }
 
   @Get()
-  async findAll() {
+  async findAllLangages() {
     return await this.langagesService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/byUser')
-  async findOne(@Param('id') id: string, @Req() req) {
-    return await this.langagesService.findOne(+id);
+  async findOne(@Request() req) {
+    const dataCheck = await Langage.findOneBy(req.user.user_id);
+
+    if (!dataCheck) {
+      return {
+        status: EStatus.FAIL,
+        message:
+          EMessageStatus.Unknown + ` Vous n'avez pas de langage connu !!`,
+      };
+    }
+    return await this.langagesService.findOnefilter(req.user.user_id);
   }
 
-  @Patch('/update')
-  async update(
-    @Param('id') id: string,
-    @Body() updateLangageDto: UpdateLangageDto,
-    @Req() req,
-  ) {
-    return await this.langagesService.update(+id, updateLangageDto);
+  @UseGuards(JwtAuthGuard)
+  @Patch()
+  async update(@Body() updateLangageDto: UpdateLangageDto, @Request() req) {
+    /* const origincheck = Object.keys(Langage).map((data) => data);
+    const inputCheck = Object.keys(updateLangageDto).map((data) =>
+      origincheck.includes(data) ? data : false,
+    );
+
+    if (inputCheck.includes(false)) {
+      return 'vérifiez votre saisie !!';
+    } */
+
+    const dataCheck = await Langage.findOneBy(req.user.user_id);
+
+    if (!dataCheck) {
+      return {
+        status: EStatus.FAIL,
+        message:
+          EMessageStatus.Unknown + ` Vous n'avez pas de langage connu !!`,
+      };
+    }
+    const dataUpdated = await this.langagesService.update(
+      req.user.user_id,
+      updateLangageDto,
+    );
+    return {
+      status: EStatus.OK,
+      message: EMessageStatus.updateOK,
+      dataUpdated: dataUpdated,
+    };
   }
 
-  @Delete('/delete')
-  async remove(@Param('id') id: string, @Req() req) {
-    return await this.langagesService.remove(+id);
+  @UseGuards(JwtAuthGuard)
+  @Delete()
+  async remove(@Request() req) {
+    const dataCheck = await Langage.findOneBy(req.user.user_id);
+
+    if (!dataCheck) {
+      return {
+        status: EStatus.FAIL,
+        message:
+          EMessageStatus.Unknown + ` Vous n'avez pas de langage connu !!`,
+      };
+    }
+    const save = await this.langagesService.findOnefilter(req.user.user_id);
+
+    await Langage.remove(save);
+    return {
+      status: EStatus.OK,
+      message: EMessageStatus.DeletedOK,
+      save: save,
+    };
   }
 }
