@@ -6,19 +6,19 @@ import { Langage } from './entities/langage.entity';
 @Injectable()
 export class LangagesService {
   async create(
-    createLangageDto: CreateLangageDto /* ,
-    user_id: number, */,
+    createLangageDto: CreateLangageDto,
+    user_id: number,
   ): Promise<Langage | undefined> {
     const newLangage = new Langage();
-    newLangage.user = createLangageDto.user;
+
+    newLangage.user = user_id;
     let i = 1;
     while (createLangageDto[`langage_${i}`]) {
       newLangage[`langage_${i}`] = createLangageDto[`langage_${i}`];
       i++;
     }
     await Langage.save(newLangage);
-    const listData = await Langage.find();
-    const newData = listData[listData.length - 1];
+    const newData = await this.findOnefilter(user_id);
 
     if (newData) {
       return newData;
@@ -38,16 +38,27 @@ export class LangagesService {
     return undefined;
   }
 
-  async findOne(user: number): Promise<Langage | undefined> {
+  async findOnefilter(user: number): Promise<any | undefined> {
     const dataUser = await Langage.findOneBy({ user });
+
+    //fromEntries pour transformer le tableau obtenu par entries de l'objet cible que j'ai filtré pour obtenir seulement la donnée voulue
+    const test = Object.fromEntries(
+      Object.entries(dataUser).filter((data) => data[1]),
+    );
+    console.log(test);
+
     if (dataUser) {
-      return dataUser;
+      return test;
     }
     return undefined;
   }
 
   async update(user: number, updateLangageDto: UpdateLangageDto) {
-    const dataUpdated = await Langage.update(user, updateLangageDto);
+    const data = await this.findOnefilter(user);
+
+    await Langage.update(data.id, updateLangageDto);
+
+    const dataUpdated = await this.findOnefilter(user);
 
     if (dataUpdated) {
       return dataUpdated;
@@ -56,9 +67,9 @@ export class LangagesService {
   }
 
   async remove(user: number): Promise<Langage | undefined> {
-    const save = await Langage.findOneBy({ user });
+    const save = await this.findOnefilter(user);
     await Langage.delete({ user });
-    const verif = await Langage.findOneBy({ user });
+    const verif = await this.findOnefilter(user);
     if (verif) {
       return undefined;
     }

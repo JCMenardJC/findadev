@@ -9,6 +9,7 @@ import {
   Unique,
 } from 'typeorm';
 
+@Unique(['user'])
 @Entity()
 @Unique(['user'])
 export class Competence extends BaseEntity {
