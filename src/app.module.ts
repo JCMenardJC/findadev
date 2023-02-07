@@ -23,7 +23,7 @@ import { ProfilModule } from './profil/profil.module';
       database: process.env.DB_NAME,
       entities: ['dist/**/*.entity{ .ts,.js}'],
       synchronize: true,
-      logging: true,
+      logging: false,
     }),
 
     LangagesModule,

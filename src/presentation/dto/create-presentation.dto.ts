@@ -1,9 +1,13 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreatePresentationDto {
-  @IsNotEmpty()
+  /* @IsNotEmpty()
   @IsNumber()
+<<<<<<< HEAD
   user: number;
+=======
+  UserId: number; */
+>>>>>>> 951bf998e1ef37005deffc0e4c6df7e502cd3cd7
 
   @IsNotEmpty()
   @IsString()
