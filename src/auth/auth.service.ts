@@ -6,35 +6,34 @@ import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
-  ) {}
+    constructor(
+        private usersService: UsersService,
+        private jwtService: JwtService,
+    ) {}
 
-  async validateUser(username: string, password: string): Promise<any> { 
-    const user = await User.find({
-      where: { username },
-      select: { password: true },
-    });
-    
-    const verifPassword = await bcrypt.compare(password, user[0].password);
+    async validateUser(username: string, password: string): Promise<any> {
+        const user = await User.find({
+            where: { username },
+            select: { password: true },
+        });
 
-   
- //console.log(user[0].password);
+        const verifPassword = await bcrypt.compare(password, user[0].password);
 
-    if (user && verifPassword) {
-      const { password, ...result } = user[0];
+        //console.log(user[0].password);
 
-      return result;
+        if (user && verifPassword) {
+            const { password, ...result } = user[0];
+
+            return result;
+        }
+        return null;
     }
-    return null;
-  }
 
-  async login(user: any) {
-    const payload = { username: user.username, sub: user.id };
+    async login(user: any) {
+        const payload = { username: user.username, sub: user.id };
 
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
+        return {
+            access_token: this.jwtService.sign(payload),
+        };
+    }
 }
