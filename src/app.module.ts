@@ -10,6 +10,7 @@ import { CompetencesModule } from './competences/competences.module';
 import { FriendsModule } from './friends/friends.module';
 import 'reflect-metadata';
 import { AuthModule } from './auth/auth.module';
+import { ProfilModule } from './profil/profil.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AuthModule } from './auth/auth.module';
     LangagesModule,
     PresentationModule,
     UsersModule,
+    ProfilModule,
     CompetencesModule,
     AuthModule,
   ],

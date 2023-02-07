@@ -8,7 +8,9 @@ export class ProfilController {
 
   @Get()
   getProfilbyId(@Req() req): Promise<ProfilDto | undefined> {
+    console.log(req);
+
     const dataProfil = this.profilService.getProfil(req.user.user_id);
-    return undefined;
+    return dataProfil;
   }
 }
