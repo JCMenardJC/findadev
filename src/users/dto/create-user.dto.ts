@@ -9,7 +9,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   @Column()
-  nom: string;
+  username: string;
   @IsNotEmpty()
   @IsString()
   @Column()

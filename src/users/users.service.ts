@@ -9,7 +9,7 @@ export class UsersService {
     const user = new User();
 
     user.mail = createUserDto.mail;
-    user.nom = createUserDto.nom;
+    user.username = createUserDto.username;
     user.prenom = createUserDto.prenom;
     user.pseudo = createUserDto.pseudo;
     user.password = await bcrypt.hash(createUserDto.password, 10);
