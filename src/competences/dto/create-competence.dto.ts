@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class CreateCompetenceDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   user: number;
 

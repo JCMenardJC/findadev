@@ -5,9 +5,9 @@ import { Competence } from './entities/competence.entity';
 
 @Injectable()
 export class CompetencesService {
-  create(createCompetenceDto: CreateCompetenceDto) {
+  create(createCompetenceDto: CreateCompetenceDto, user: number) {
     const newCompetence = new Competence();
-    newCompetence.user = createCompetenceDto.user;
+    newCompetence.user = user;
     newCompetence.competence1 = createCompetenceDto.competence1;
     newCompetence.competence2 = createCompetenceDto.competence2;
     newCompetence.competence3 = createCompetenceDto.competence3;

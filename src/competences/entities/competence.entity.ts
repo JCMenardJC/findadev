@@ -3,6 +3,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Unique,
@@ -15,6 +16,7 @@ export class Competence extends BaseEntity {
   id: number;
 
   @ManyToOne(() => User, (user) => user.id, { eager: true })
+  @JoinColumn()
   user: number;
 
   @Column({ type: 'varchar' })
