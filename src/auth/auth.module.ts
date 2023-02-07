@@ -9,7 +9,7 @@ import { LocalStrategy } from './local.strategy';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ envFilePath: '.env' }),
     UsersModule,
     PassportModule,
     JwtModule.register({

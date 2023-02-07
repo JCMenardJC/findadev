@@ -22,7 +22,7 @@ import { AuthModule } from './auth/auth.module';
       database: process.env.DB_NAME,
       entities: ['dist/**/*.entity{ .ts,.js}'],
       synchronize: true,
-      logging: true,
+      logging: false,
     }),
 
     LangagesModule,
