@@ -15,7 +15,7 @@ import {
 export class Langage extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-  @ManyToOne(() => User, (user) => user.id, { eager: true })
+  @ManyToOne(() => User, (user) => user.id)
   @JoinColumn()
   user: number;
 

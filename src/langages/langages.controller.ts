@@ -50,25 +50,69 @@ export class LangagesController {
   @UseGuards(JwtAuthGuard)
   @Get('/byUser')
   async findOne(@Request() req) {
+    const dataCheck = await Langage.findOneBy(req.user.user_id);
+
+    if (!dataCheck) {
+      return {
+        status: EStatus.FAIL,
+        message:
+          EMessageStatus.Unknown + ` Vous n'avez pas de langage connu !!`,
+      };
+    }
     return await this.langagesService.findOnefilter(req.user.user_id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch()
   async update(@Body() updateLangageDto: UpdateLangageDto, @Request() req) {
+    /* const origincheck = Object.keys(Langage).map((data) => data);
+    const inputCheck = Object.keys(updateLangageDto).map((data) =>
+      origincheck.includes(data) ? data : false,
+    );
+
+    if (inputCheck.includes(false)) {
+      return 'vérifiez votre saisie !!';
+    } */
+
+    const dataCheck = await Langage.findOneBy(req.user.user_id);
+
+    if (!dataCheck) {
+      return {
+        status: EStatus.FAIL,
+        message:
+          EMessageStatus.Unknown + ` Vous n'avez pas de langage connu !!`,
+      };
+    }
     const dataUpdated = await this.langagesService.update(
       req.user.user_id,
       updateLangageDto,
     );
-    return dataUpdated;
+    return {
+      status: EStatus.OK,
+      message: EMessageStatus.updateOK,
+      dataUpdated: dataUpdated,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete()
   async remove(@Request() req) {
+    const dataCheck = await Langage.findOneBy(req.user.user_id);
+
+    if (!dataCheck) {
+      return {
+        status: EStatus.FAIL,
+        message:
+          EMessageStatus.Unknown + ` Vous n'avez pas de langage connu !!`,
+      };
+    }
     const save = await this.langagesService.findOnefilter(req.user.user_id);
 
     await Langage.remove(save);
-    return save;
+    return {
+      status: EStatus.OK,
+      message: EMessageStatus.DeletedOK,
+      save: save,
+    };
   }
 }
