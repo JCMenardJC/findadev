@@ -1,4 +1,5 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ProfilDto } from './profil-dto';
 import { ProfilService } from './profil.service';
 
@@ -6,11 +7,10 @@ import { ProfilService } from './profil.service';
 export class ProfilController {
   constructor(private readonly profilService: ProfilService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  getProfilbyId(@Req() req): Promise<ProfilDto | undefined> {
-    console.log(req);
-
-    const dataProfil = this.profilService.getProfil(req.user.user_id);
+  async getProfilbyId(@Request() req): Promise<ProfilDto | undefined> {
+    const dataProfil = await this.profilService.getProfil(req.user.user_id);
     return dataProfil;
   }
 }

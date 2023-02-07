@@ -8,7 +8,7 @@ export class User extends BaseEntity {
   mail: string;
 
   @Column({ type: 'varchar' })
-  nom: string;
+  username: string;
 
   @Column({ type: 'varchar' })
   prenom: string;
