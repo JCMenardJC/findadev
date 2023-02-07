@@ -13,8 +13,8 @@ export class Presentation extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  /* @Column({ nullable: false })
-  userId: number; */
+  @ManyToOne(() => User, (user) => user.id)
+  user: number;
 
   @Column({ nullable: false })
   langage: string;
@@ -33,7 +33,4 @@ export class Presentation extends BaseEntity {
 
   @Column()
   hobbies: string;
-
-  @ManyToOne(() => User, (user) => user.id)
-  user: number;
 }

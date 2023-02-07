@@ -7,13 +7,15 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 
+@Unique(['user'])
 @Entity()
 export class Langage extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.id, { eager: true })
   @JoinColumn()
   user: number;
 
