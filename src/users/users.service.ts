@@ -5,7 +5,7 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
-  async create(createUserDto: CreateUserDto) {
+  async register(createUserDto: CreateUserDto) {
     const user = new User();
 
     user.mail = createUserDto.mail;
@@ -32,10 +32,17 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    return await User.findOneBy({ id: id });
+    const rechercheId = await User.findOneBy({ id: id });
+    return rechercheId;
   }
   async findOneMail(mail: string) {
     return await User.findOneBy({ mail: mail });
+  }
+  async findOneNom(mail: string) {
+    return await User.findOneBy({ mail: mail });
+  }
+  async findOnePseudo(pseudo: string) {
+    return await User.findOneBy({ pseudo: pseudo });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

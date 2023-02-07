@@ -8,20 +8,39 @@ import {
   Delete,
   ParseIntPipe,
   UseGuards,
+  Res,
+  NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Response } from 'express';
+import { User } from './entities/user.entity';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+    const verifMail = await User.findOneBy({ mail: createUserDto.mail });
+    const verifPseudo = await User.findOneBy({ pseudo: createUserDto.pseudo });
+
+    if (verifMail || verifPseudo) {
+      res.status(401).json({
+        status: '401',
+        message: 'This client is existing,mail or pseudo are existing !!',
+      });
+      return;
+    }
+    const data = await this.usersService.register(createUserDto);
+    if (!createUserDto) {
+      throw new BadRequestException('informations manquantes');
+    } else {
+      return data;
+    }
   }
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -30,20 +49,33 @@ export class UsersController {
   }
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: string) {
-    return this.usersService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const findId = this.usersService.findOne(+id);
+    const verifId = (await User.findOneBy({ id: id })).id;
+    if (verifId === null) {
+      throw new NotFoundException("l'ID ne correspond à aucun utilisateur");
+    }
+    return findId;
   }
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.usersService.update(+id, updateUserDto);
+    const data = await this.usersService.findOne(+id);
+    if (!data) {
+      throw new NotFoundException("l'ID' ne correspond à aucun utilisateur");
+    }
+    return await this.usersService.update(+id, updateUserDto);
   }
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: string) {
+  async remove(@Param('id', ParseIntPipe) id: string) {
+    const data = await this.usersService.findOne(+id);
+    if (!data) {
+      throw new NotFoundException("l'ID' ne correspond à aucun utilisateur");
+    }
     return this.usersService.remove(+id);
   }
 }
