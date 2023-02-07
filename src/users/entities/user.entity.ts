@@ -1,5 +1,13 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
+
 @Entity()
+//@Unique(['mail', 'pseudo'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,7 +23,7 @@ export class User extends BaseEntity {
 
   @Column({ type: 'varchar' })
   pseudo: string;
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', select: false })
   password: string;
   @Column({ type: 'varchar' })
   adress_line: string;
