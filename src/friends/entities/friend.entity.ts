@@ -1,24 +1,28 @@
 import { User } from 'src/users/entities/user.entity';
 import {
-  BaseEntity,
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
+        BaseEntity,
+        Column,
+        Entity,
+        ManyToOne,
+        OneToMany,
+        PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
 export class Friend extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+        @PrimaryGeneratedColumn()
+        id: number;
 
-  @ManyToOne(() => User, (user) => user.id, { eager: true })
-  user: number;
+        @ManyToOne(() => User, (user) => user.id, {
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+                eager: true,
+        })
+        user: number;
 
-  @Column({ type: 'varchar' })
-  pseudoAsked: string;
+        @Column({ type: 'varchar' })
+        pseudoAsked: string;
 
-  @Column({ type: 'boolean', default: false })
-  response: boolean;
+        @Column({ type: 'boolean', default: false })
+        response: boolean;
 }
