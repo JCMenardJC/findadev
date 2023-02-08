@@ -33,9 +33,9 @@ import { FriendsModule } from "./friends/friends.module";
     UsersModule,
     ProfilModule,
     SearchModule,
+    FriendsModule,
     CompetencesModule,
     AuthModule,
-    FriendsModule,
   ],
 
   controllers: [AppController],
