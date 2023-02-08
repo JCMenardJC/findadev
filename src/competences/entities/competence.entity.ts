@@ -12,7 +12,6 @@ import {
 
 @Unique(["user"])
 @Entity()
-@Unique(["user"])
 export class Competence extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

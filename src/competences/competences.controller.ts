@@ -10,7 +10,6 @@ import {
   UseGuards,
   Request,
 } from "@nestjs/common";
-import {} from "@nestjs/common/decorators";
 import { Response } from "express";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { CompetencesService } from "./competences.service";
@@ -25,15 +24,14 @@ export class CompetencesController {
   @Post()
   async create(
     @Body() createCompetenceDto: CreateCompetenceDto,
-
-    @Res() res: Response,
-    @Request() req
+    @Request() req,
+    @Res() res: Response
   ) {
+    console.log(req.user.user_id);
+
     const verifUser = await this.competencesService.findOneById(
       req.user.user_id
     );
-    console.log(`l'id est :` + req.user.user_id);
-
     console.log(verifUser);
 
     if (verifUser) {

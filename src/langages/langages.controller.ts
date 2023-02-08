@@ -52,7 +52,7 @@ export class LangagesController {
         }
 
         @UseGuards(JwtAuthGuard)
-        @Get('/byUser')
+        @Get('byUser')
         async findOne(@Request() req) {
                 const dataCheck = await Langage.findOneBy(req.user.user_id);
 
