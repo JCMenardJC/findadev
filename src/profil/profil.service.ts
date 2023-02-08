@@ -7,19 +7,52 @@ import { ProfilDto } from './profil-dto';
 
 @Injectable()
 export class ProfilService {
-  async getProfil(user_id: number): Promise<ProfilDto | undefined> {
-    const newProfil = new ProfilDto();
+        async findOnefilter(user: number): Promise<any | undefined> {
+                const dataUser = await Langage.findOneBy({ user });
 
-    newProfil.pseudo = (await User.findOneBy({ id: user_id })).pseudo;
-    if (!newProfil.pseudo) {
-      return undefined;
-    }
-    newProfil.presentation = await Presentation.findOneBy({ user: user_id });
+                //fromEntries pour transformer le tableau obtenu par entries de l'objet cible que j'ai filtré pour obtenir seulement la donnée voulue
+                const test = Object.fromEntries(
+                        Object.entries(dataUser).filter((data) => data[1])
+                );
+                //console.log(test);
 
-    newProfil.competences = await Competence.findOneBy({ user: user_id });
+                if (dataUser) {
+                        return test;
+                }
+                return undefined;
+        }
+        async getProfil(user_id: number): Promise<ProfilDto | undefined> {
+                const newProfil = new ProfilDto();
 
-    newProfil.langages = await Langage.findOneBy({ user: user_id });
+                newProfil.pseudo = (
+                        await User.findOneBy({ id: user_id })
+                ).pseudo;
+                if (!newProfil.pseudo) {
+                        return undefined;
+                }
+                /* const dataPresentation = await Presentation.findOneBy({
+                        user: user_id,
+                });
+                const newPresentation = Object.fromEntries(
+                        Object.entries(dataPresentation).filter(
+                                (data) => data[1]
+                        )
+                );
+                newProfil.presentation = newPresentation; */
+                newProfil.presentation = await Presentation.findOneBy({
+                        user: user_id,
+                });
 
-    return newProfil;
-  }
+                newProfil.competences = await Competence.findOneBy({
+                        user: user_id,
+                });
+
+                const dataLangage = await Langage.findOneBy({ user: user_id });
+                const newLangage = Object.fromEntries(
+                        Object.entries(dataLangage).filter((data) => data[1])
+                );
+                newProfil.langages = newLangage;
+
+                return newProfil;
+        }
 }
