@@ -62,9 +62,11 @@ export class UsersController {
         };
     }
     @UseGuards(JwtAuthGuard)
-    @Get('/ByUser')
+    @Get('/comptePerso')
     async findOne(@Request() req) {
         const findId = await this.usersService.findOne(req.user.user_id);
+        console.log(findId);
+
         return {
             status: EStatus.OK,
             message: `Les données de l'identifiant`,
@@ -75,11 +77,6 @@ export class UsersController {
     @Patch()
     async update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
         const data = await this.usersService.findOne(req.user.user_id);
-        if (!data) {
-            throw new NotFoundException(
-                "l'ID recherché ne correspond à aucun utilisateur",
-            );
-        }
         const userUpdated = await this.usersService.update(
             req.user.user_id,
             updateUserDto,
@@ -91,27 +88,16 @@ export class UsersController {
         };
     }
     @UseGuards(JwtAuthGuard)
-    @Delete(':id')
-    async remove(@Param('id', ParseIntPipe) id: string) {
-        const data = await this.usersService.findOne(+id);
-        const verifPropID = (await User.findOneBy({ id: +id })).id;
+    @Delete()
+    async remove(@Request() req) {
+        const data = await this.usersService.findOne(req.user.user_id);
         if (!data) {
-            throw new NotFoundException(
-                "l'ID de suppression recherché  ne correspond à aucun utilisateur",
-            );
+            throw new NotFoundException('Votre compte a déjà était supprimé');
         }
-        console.log(verifPropID !== data.id);
-
-        if (verifPropID !== data.id) {
-            return {
-                status: EStatus.OK,
-                message: `Des données de l'identifiant ${id} ne vous appartiennent pas `,
-            };
-        }
-        const userRemoved = await this.usersService.remove(+id);
+        const userRemoved = await this.usersService.remove(req.user.user_id);
         return {
             status: EStatus.OK,
-            message: `Des données de l'identifiant ${id} ont été supprimées`,
+            message: `Des données de l'identifiant ${data.id} ont été supprimées`,
             data: userRemoved,
         };
     }
