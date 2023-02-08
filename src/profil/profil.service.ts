@@ -42,10 +42,13 @@ export class ProfilService {
                 newProfil.presentation = await Presentation.findOneBy({
                         user: user_id,
                 });
-
-                newProfil.competences = await Competence.findOneBy({
+                const dataCompetence = await Competence.findOneBy({
                         user: user_id,
                 });
+                const newCompetence = Object.fromEntries(
+                        Object.entries(dataCompetence).filter((data) => data[1])
+                );
+                newProfil.competences = newCompetence;
 
                 const dataLangage = await Langage.findOneBy({ user: user_id });
                 const newLangage = Object.fromEntries(
