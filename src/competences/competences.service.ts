@@ -48,18 +48,12 @@ export class CompetencesService {
   async update(id: number, updateCompetenceDto: UpdateCompetenceDto) {
     const competenceChanged = await Competence.findBy({ id });
     if (
-      (updateCompetenceDto.competence1 == competenceChanged[0].competence1 &&
-        updateCompetenceDto.competence1 !== null) ||
-      (updateCompetenceDto.competence2 == competenceChanged[0].competence2 &&
-        updateCompetenceDto.competence2 !== null) ||
-      (updateCompetenceDto.competence3 == competenceChanged[0].competence3 &&
-        updateCompetenceDto.competence3 !== null) ||
-      (updateCompetenceDto.competence4 == competenceChanged[0].competence4 &&
-        updateCompetenceDto.competence4 !== null) ||
-      (updateCompetenceDto.competence5 == competenceChanged[0].competence5 &&
-        updateCompetenceDto.competence5 !== null) ||
-      (updateCompetenceDto.competence6 == competenceChanged[0].competence6 &&
-        updateCompetenceDto.competence6 !== null)
+      updateCompetenceDto.competence1 == competenceChanged[0].competence1 ||
+      updateCompetenceDto.competence2 == competenceChanged[0].competence2 ||
+      updateCompetenceDto.competence3 == competenceChanged[0].competence3 ||
+      updateCompetenceDto.competence4 == competenceChanged[0].competence4 ||
+      updateCompetenceDto.competence5 == competenceChanged[0].competence5 ||
+      updateCompetenceDto.competence6 == competenceChanged[0].competence6
     ) {
       return `pas de compétences rentrées`;
     } else {

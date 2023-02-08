@@ -16,7 +16,6 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { CompetencesService } from "./competences.service";
 import { CreateCompetenceDto } from "./dto/create-competence.dto";
 import { UpdateCompetenceDto } from "./dto/update-competence.dto";
-import { Competence } from "./entities/competence.entity";
 
 @Controller("competences")
 export class CompetencesController {
@@ -26,10 +25,15 @@ export class CompetencesController {
   @Post()
   async create(
     @Body() createCompetenceDto: CreateCompetenceDto,
+
     @Res() res: Response,
     @Request() req
   ) {
-    const verifUser = await this.findOneById(req.user.user_id);
+    const verifUser = await this.competencesService.findOneById(
+      req.user.user_id
+    );
+    console.log(`l'id est :` + req.user.user_id);
+
     console.log(verifUser);
 
     if (verifUser) {
