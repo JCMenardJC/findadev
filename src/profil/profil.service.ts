@@ -7,19 +7,21 @@ import { ProfilDto } from './profil-dto';
 
 @Injectable()
 export class ProfilService {
-  async getProfil(user_id: number): Promise<ProfilDto | undefined> {
-    const newProfil = new ProfilDto();
+    async getProfil(user_id: number): Promise<ProfilDto | undefined> {
+        const newProfil = new ProfilDto();
 
-    newProfil.pseudo = (await User.findOneBy({ id: user_id })).pseudo;
-    if (!newProfil.pseudo) {
-      return undefined;
+        newProfil.pseudo = (await User.findOneBy({ id: user_id })).pseudo;
+        if (!newProfil.pseudo) {
+            return undefined;
+        }
+        newProfil.presentation = await Presentation.findOneBy({
+            user: user_id,
+        });
+
+        newProfil.competences = await Competence.findOneBy({ user: user_id });
+
+        newProfil.langages = await Langage.findOneBy({ user: user_id });
+
+        return newProfil;
     }
-    newProfil.presentation = await Presentation.findOneBy({ user: user_id });
-
-    newProfil.competences = await Competence.findOneBy({ user: user_id });
-
-    newProfil.langages = await Langage.findOneBy({ user: user_id });
-
-    return newProfil;
-  }
 }
