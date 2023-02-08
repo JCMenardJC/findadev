@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCompetenceDto } from './dto/create-competence.dto';
-import { UpdateCompetenceDto } from './dto/update-competence.dto';
-import { Competence } from './entities/competence.entity';
+import { Injectable } from "@nestjs/common";
+import { CreateCompetenceDto } from "./dto/create-competence.dto";
+import { UpdateCompetenceDto } from "./dto/update-competence.dto";
+import { Competence } from "./entities/competence.entity";
 
 @Injectable()
 export class CompetencesService {
@@ -34,7 +34,7 @@ export class CompetencesService {
       competence6: competence,
     });
     if (!findCompetence) {
-      return 'La compétence recherchée n existe pas';
+      return "La compétence recherchée n existe pas";
     } else {
       return findCompetence;
     }
@@ -48,12 +48,18 @@ export class CompetencesService {
   async update(id: number, updateCompetenceDto: UpdateCompetenceDto) {
     const competenceChanged = await Competence.findBy({ id });
     if (
-      updateCompetenceDto.competence1 == competenceChanged[0].competence1 ||
-      updateCompetenceDto.competence2 == competenceChanged[0].competence2 ||
-      updateCompetenceDto.competence3 == competenceChanged[0].competence3 ||
-      updateCompetenceDto.competence4 == competenceChanged[0].competence4 ||
-      updateCompetenceDto.competence5 == competenceChanged[0].competence5 ||
-      updateCompetenceDto.competence6 == competenceChanged[0].competence6
+      (updateCompetenceDto.competence1 == competenceChanged[0].competence1 &&
+        updateCompetenceDto.competence1 !== null) ||
+      (updateCompetenceDto.competence2 == competenceChanged[0].competence2 &&
+        updateCompetenceDto.competence2 !== null) ||
+      (updateCompetenceDto.competence3 == competenceChanged[0].competence3 &&
+        updateCompetenceDto.competence3 !== null) ||
+      (updateCompetenceDto.competence4 == competenceChanged[0].competence4 &&
+        updateCompetenceDto.competence4 !== null) ||
+      (updateCompetenceDto.competence5 == competenceChanged[0].competence5 &&
+        updateCompetenceDto.competence5 !== null) ||
+      (updateCompetenceDto.competence6 == competenceChanged[0].competence6 &&
+        updateCompetenceDto.competence6 !== null)
     ) {
       return `pas de compétences rentrées`;
     } else {
@@ -69,7 +75,7 @@ export class CompetencesService {
   async remove(id: number) {
     const idCompetence = await Competence.findOneBy({ id: id });
     if (!idCompetence) {
-      return 'La compétence recherchée n existe pas';
+      return "La compétence recherchée n existe pas";
     }
     await Competence.remove(idCompetence);
     return idCompetence;
