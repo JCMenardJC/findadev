@@ -59,16 +59,18 @@ export class UsersController {
     @UseGuards(JwtAuthGuard)
     @Get(':id')
     async findOne(@Param('id', ParseIntPipe) id: number) {
-        const findId = this.usersService.findOne(+id);
+        const findId = await this.usersService.findOne(+id);
         const verifId = (await User.findOneBy({ id: id })).id;
         if (verifId === null) {
             throw new NotFoundException(
                 "l'ID recherché ne correspond à aucun utilisateur",
             );
         }
+        console.log(findId);
+
         return {
             status: EStatus.OK,
-            message: `Des données de l'identifiant ${id} ont été supprimées`,
+            message: `Les données de l'identifiant`,
             data: findId,
         };
     }
@@ -87,7 +89,7 @@ export class UsersController {
         const userUpdated = await this.usersService.update(+id, updateUserDto);
         return {
             status: EStatus.OK,
-            message: 'Des données ont été mise à jour',
+            message: 'Les données ont été mise à jour',
             data: userUpdated,
         };
     }
