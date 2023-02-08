@@ -23,12 +23,15 @@ export class UsersService {
         await User.save(user);
         return user;
     }
-    async findAll() {
-        return await User.find({
+    async findAll(): Promise<User[] | undefined> {
+        const data = await User.find({
             select: {
                 password: false,
             },
         });
+        if (data[0]) {
+            return data;
+        }
     }
     async findOne(id: number) {
         const rechercheId = await User.findOneBy({ id: id });
@@ -37,10 +40,8 @@ export class UsersService {
     async findOneMail(mail: string) {
         return await User.findOneBy({ mail: mail });
     }
-    async findOneNom(mail: string) {
-        return await User.findOneBy({ mail: mail });
-    }
-    async findOnePseudo(username: string) {
+
+    async findOneUsername(username: string) {
         return await User.findOneBy({ username: username });
     }
     async update(id: number, updateUserDto: UpdateUserDto) {
