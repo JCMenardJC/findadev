@@ -1,14 +1,14 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Res,
-  UseGuards,
-  Request,
+        Controller,
+        Get,
+        Post,
+        Body,
+        Patch,
+        Param,
+        Delete,
+        Res,
+        UseGuards,
+        Request,
 } from '@nestjs/common';
 import {} from '@nestjs/common/decorators';
 import { Response } from 'express';
@@ -20,56 +20,57 @@ import { Competence } from './entities/competence.entity';
 
 @Controller('competences')
 export class CompetencesController {
-  constructor(private readonly competencesService: CompetencesService) {}
+        constructor(private readonly competencesService: CompetencesService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Post()
-  async create(
-    @Body() createCompetenceDto: CreateCompetenceDto,
-    @Res() res: Response,
-    @Request() req,
-  ) {
-    const verifUser = await this.findOneById(req.user.user_id);
-    console.log(verifUser);
+        @UseGuards(JwtAuthGuard)
+        @Post()
+        async create(
+                @Body() createCompetenceDto: CreateCompetenceDto,
 
-    if (verifUser) {
-      res.status(401).json({
-        status: '401',
-        message: 'This user has already post his competences !!',
-      });
-    } else {
-      await this.competencesService.create(
-        createCompetenceDto,
-        req.user.user_id,
-      );
-      res.status(201).json({
-        status: '201',
-        message: 'Success',
-        data: createCompetenceDto,
-      });
-    }
-  }
+                @Request() req,
+                @Res() res: Response
+        ) {
+                const verifUser = await this.findOneById(req.user.user_id);
+                console.log(verifUser);
 
-  @Get()
-  findAll() {
-    return this.competencesService.findAll();
-  }
+                if (verifUser) {
+                        res.status(401).json({
+                                status: '401',
+                                message: 'This user has already post his competences !!',
+                        });
+                } else {
+                        await this.competencesService.create(
+                                createCompetenceDto,
+                                req.user.user_id
+                        );
+                        res.status(201).json({
+                                status: '201',
+                                message: 'Success',
+                                data: createCompetenceDto,
+                        });
+                }
+        }
 
-  @Get(':id')
-  findOneById(@Param('id') id: string) {
-    return this.competencesService.findOneById(+id);
-  }
+        @Get()
+        findAll() {
+                return this.competencesService.findAll();
+        }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCompetenceDto: UpdateCompetenceDto,
-  ) {
-    return this.competencesService.update(+id, updateCompetenceDto);
-  }
+        @Get(':id')
+        findOneById(@Param('id') id: string) {
+                return this.competencesService.findOneById(+id);
+        }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.competencesService.remove(+id);
-  }
+        @Patch(':id')
+        update(
+                @Param('id') id: string,
+                @Body() updateCompetenceDto: UpdateCompetenceDto
+        ) {
+                return this.competencesService.update(+id, updateCompetenceDto);
+        }
+
+        @Delete(':id')
+        remove(@Param('id') id: string) {
+                return this.competencesService.remove(+id);
+        }
 }
