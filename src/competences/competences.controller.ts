@@ -10,13 +10,11 @@ import {
         UseGuards,
         Request,
 } from '@nestjs/common';
-import {} from '@nestjs/common/decorators';
 import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CompetencesService } from './competences.service';
 import { CreateCompetenceDto } from './dto/create-competence.dto';
 import { UpdateCompetenceDto } from './dto/update-competence.dto';
-import { Competence } from './entities/competence.entity';
 
 @Controller('competences')
 export class CompetencesController {
@@ -26,11 +24,14 @@ export class CompetencesController {
         @Post()
         async create(
                 @Body() createCompetenceDto: CreateCompetenceDto,
-
                 @Request() req,
                 @Res() res: Response
         ) {
-                const verifUser = await this.findOneById(req.user.user_id);
+                console.log(req.user.user_id);
+
+                const verifUser = await this.competencesService.findOneById(
+                        req.user.user_id
+                );
                 console.log(verifUser);
 
                 if (verifUser) {

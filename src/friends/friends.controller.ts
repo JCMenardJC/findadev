@@ -16,9 +16,7 @@ import { UpdateFriendDto } from './dto/update-friend.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from 'src/users/entities/user.entity';
 import { Like } from 'typeorm';
-import { ESLint } from 'eslint';
 import { EMessageStatus, EStatus } from 'src/constants/enum';
-import { Friend } from './entities/friend.entity';
 
 @Controller('friends')
 export class FriendsController {
@@ -77,6 +75,7 @@ export class FriendsController {
                 return this.friendsService.findOne(+id);
         }
 
+        //Accepter la demande d'ami.e
         @Patch(':id')
         update(
                 @Param('id') id: string,
@@ -85,6 +84,7 @@ export class FriendsController {
                 return this.friendsService.update(+id, updateFriendDto);
         }
 
+        //le demandeur et receveur peuvent annuler la demande
         @Delete(':id')
         remove(@Param('id') id: string) {
                 return this.friendsService.remove(+id);
