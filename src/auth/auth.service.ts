@@ -11,23 +11,15 @@ export class AuthService {
         private jwtService: JwtService,
     ) {}
 
-<<<<<<< HEAD
-        async validateUser(username: string, password: string): Promise<any> {
-                const user = await User.find({
-                        where: { username },
-                        select: {
-                                id: true,
-                                username: true,
-                                password: true,
-                        },
-                });
-=======
     async validateUser(username: string, password: string): Promise<any> {
         const user = await User.find({
             where: { username },
-            select: { id: true, username: true, password: true },
+            select: {
+                id: true,
+                username: true,
+                password: true,
+            },
         });
->>>>>>> b288c7492d594f4a2edf51c4b3bf609d1819d9e1
 
         const verifPassword = await bcrypt.compare(password, user[0].password);
 

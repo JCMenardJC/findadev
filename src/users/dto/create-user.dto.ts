@@ -20,6 +20,7 @@ export class CreateUserDto {
     nom: string;
     @IsNotEmpty()
     @IsString()
+    @Column()
     password: string;
     @IsNotEmpty()
     @IsString()
