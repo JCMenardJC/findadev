@@ -4,11 +4,11 @@ import { Presentation } from 'src/presentation/entities/presentation.entity';
 import { BaseEntity } from 'typeorm';
 
 export class ProfilDto {
-        pseudo: string;
+    username: string;
 
-        presentation: Presentation | any;
+    presentation: Presentation | any;
 
-        competences: Competence | any;
+    competences: Competence | any;
 
-        langages: Langage | any;
+    langages: Langage | any;
 }

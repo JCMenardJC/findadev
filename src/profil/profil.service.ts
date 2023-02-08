@@ -24,10 +24,10 @@ export class ProfilService {
         async getProfil(user_id: number): Promise<ProfilDto | undefined> {
                 const newProfil = new ProfilDto();
 
-                newProfil.pseudo = (
+                newProfil.username = (
                         await User.findOneBy({ id: user_id })
-                ).pseudo;
-                if (!newProfil.pseudo) {
+                ).username;
+                if (!newProfil.username) {
                         return undefined;
                 }
                 /* const dataPresentation = await Presentation.findOneBy({

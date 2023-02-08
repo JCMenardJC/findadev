@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-@Unique(['mail', 'pseudo'])
+@Unique(['mail', 'username'])
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
@@ -17,13 +17,13 @@ export class User extends BaseEntity {
     mail: string;
 
     @Column({ type: 'varchar' })
-    username: string;
+    nom: string;
 
     @Column({ type: 'varchar' })
     prenom: string;
 
     @Column({ type: 'varchar' })
-    pseudo: string;
+    username: string;
     @Column({ type: 'varchar', select: false })
     @Exclude()
     password: string;

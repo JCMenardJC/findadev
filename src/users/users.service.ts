@@ -3,15 +3,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { Like } from 'typeorm';
 @Injectable()
 export class UsersService {
     async register(createUserDto: CreateUserDto) {
         const user = new User();
 
         user.mail = createUserDto.mail;
-        user.username = createUserDto.username;
+        user.nom = createUserDto.nom;
         user.prenom = createUserDto.prenom;
-        user.pseudo = createUserDto.pseudo;
+        user.username = createUserDto.username;
         user.password = await bcrypt.hash(createUserDto.password, 10);
         user.adress_line = createUserDto.adress_line;
         user.zipCode = createUserDto.zipCode;
@@ -39,8 +40,8 @@ export class UsersService {
     async findOneNom(mail: string) {
         return await User.findOneBy({ mail: mail });
     }
-    async findOnePseudo(pseudo: string) {
-        return await User.findOneBy({ pseudo: pseudo });
+    async findOnePseudo(username: string) {
+        return await User.findOneBy({ username: username });
     }
     async update(id: number, updateUserDto: UpdateUserDto) {
         await User.update(id, updateUserDto);
