@@ -11,6 +11,7 @@ import 'reflect-metadata';
 import { AuthModule } from './auth/auth.module';
 import { ProfilModule } from './profil/profil.module';
 import { SearchModule } from './search/search.module';
+import { FriendsModule } from './friends/friends.module';
 
 @Module({
         imports: [
@@ -32,6 +33,7 @@ import { SearchModule } from './search/search.module';
                 UsersModule,
                 ProfilModule,
                 SearchModule,
+                FriendsModule,
                 CompetencesModule,
                 AuthModule,
         ],
