@@ -30,7 +30,7 @@ export class LangagesController {
                 @Request() req
         ) {
                 const dataCheck = await Langage.findOneBy({
-                        user: req.user.user_id,
+                        user: { id: req.user.user_id },
                 });
                 const user = await this.userService.findOne(req.user.user_id);
 
@@ -102,8 +102,10 @@ export class LangagesController {
       return 'vérifiez votre saisie !!';
     } */
 
-                const dataCheck = await Langage.findOneBy(req.user.user_id);
-
+                const dataCheck = await Langage.findOneBy({
+                        user: { id: req.user.user_id },
+                });
+                const id = dataCheck.id;
                 if (!dataCheck) {
                         return {
                                 status: EStatus.FAIL,
@@ -112,6 +114,8 @@ export class LangagesController {
                                         ` Vous n'avez pas de langage connu !!`,
                         };
                 }
+                console.log(updateLangageDto);
+
                 const dataUpdated = await this.langagesService.update(
                         req.user.user_id,
                         updateLangageDto

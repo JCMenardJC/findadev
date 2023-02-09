@@ -1,4 +1,3 @@
-import { type } from 'os';
 import { User } from 'src/users/entities/user.entity';
 import {
         BaseEntity,
@@ -12,15 +11,11 @@ import {
 
 @Entity()
 export class Langage extends BaseEntity {
-        static findAll() {
-                throw new Error('Method not implemented.');
-        }
         @PrimaryGeneratedColumn()
         id: number;
         @OneToOne(() => User, {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
-                //eager: true,
         })
         @JoinColumn()
         user: User;

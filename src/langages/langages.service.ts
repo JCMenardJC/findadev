@@ -60,7 +60,7 @@ export class LangagesService {
         async update(user: number, updateLangageDto: UpdateLangageDto) {
                 const data = await this.findOnefilter(user);
 
-                //await Langage.update(data.id, updateLangageDto);
+                await Langage.update(data.id, updateLangageDto);
 
                 const dataUpdated = await this.findOnefilter(user);
 

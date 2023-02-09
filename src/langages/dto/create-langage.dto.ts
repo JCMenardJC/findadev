@@ -3,8 +3,7 @@ import { User } from 'src/users/entities/user.entity';
 
 export class CreateLangageDto {
         @IsOptional()
-        @IsNumber()
-        user: number;
+        user: User;
         @IsNotEmpty()
         @IsString()
         langage_1: string;

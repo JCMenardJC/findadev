@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Competence } from 'src/competences/entities/competence.entity';
 import { Langage } from 'src/langages/entities/langage.entity';
 import {
@@ -23,11 +24,13 @@ export class User extends BaseEntity {
         nom: string;
 
         @Column({ type: 'varchar' })
+        @Exclude()
         prenom: string;
 
         @Column({ type: 'varchar' })
         username: string;
         @Column({ type: 'varchar', select: false })
+        @Exclude()
         password: string;
         @Column({ type: 'varchar' })
         adress_line: string;
