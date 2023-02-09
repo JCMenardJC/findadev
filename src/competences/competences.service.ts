@@ -1,11 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { CreateCompetenceDto } from "./dto/create-competence.dto";
-import { UpdateCompetenceDto } from "./dto/update-competence.dto";
-import { Competence } from "./entities/competence.entity";
+import { Injectable } from '@nestjs/common';
+import { CreateCompetenceDto } from './dto/create-competence.dto';
+import { UpdateCompetenceDto } from './dto/update-competence.dto';
+import { Competence } from './entities/competence.entity';
 
 @Injectable()
 export class CompetencesService {
-<<<<<<< HEAD
     create(createCompetenceDto: CreateCompetenceDto, user: number) {
         const newCompetence = new Competence();
         newCompetence.user = user;
@@ -18,40 +17,6 @@ export class CompetencesService {
         newCompetence.competence6 = createCompetenceDto.competence6;
         newCompetence.save();
         return newCompetence;
-=======
-  create(createCompetenceDto: CreateCompetenceDto, user: number) {
-    const newCompetence = new Competence();
-    newCompetence.user = user;
-    newCompetence.competence1 = createCompetenceDto.competence1;
-    newCompetence.competence2 = createCompetenceDto.competence2;
-    newCompetence.competence3 = createCompetenceDto.competence3;
-    newCompetence.competence4 = createCompetenceDto.competence4;
-    newCompetence.competence5 = createCompetenceDto.competence5;
-    newCompetence.competence5 = createCompetenceDto.competence5;
-    newCompetence.competence6 = createCompetenceDto.competence6;
-    newCompetence.save();
-    return newCompetence;
-  }
-
-  async findAll() {
-    const allCompetences = await Competence.find();
-    return allCompetences;
-  }
-
-  async findByCompetence(competence: string) {
-    const findCompetence = await Competence.findBy({
-      competence1: competence,
-      competence2: competence,
-      competence3: competence,
-      competence4: competence,
-      competence5: competence,
-      competence6: competence,
-    });
-    if (!findCompetence) {
-      return "La compétence recherchée n existe pas";
-    } else {
-      return findCompetence;
->>>>>>> e9215866234af55f1a0f795906f0a364efe3deec
     }
 
     async findAll() {
@@ -59,7 +24,6 @@ export class CompetencesService {
         return allCompetences;
     }
 
-<<<<<<< HEAD
     async findByCompetence(competence: string) {
         const findCompetence = await Competence.findBy({
             competence1: competence,
@@ -114,11 +78,5 @@ export class CompetencesService {
         }
         await Competence.remove(idCompetence);
         return idCompetence;
-=======
-  async remove(id: number) {
-    const idCompetence = await Competence.findOneBy({ id: id });
-    if (!idCompetence) {
-      return "La compétence recherchée n existe pas";
->>>>>>> e9215866234af55f1a0f795906f0a364efe3deec
     }
 }
