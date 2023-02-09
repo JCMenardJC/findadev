@@ -1,4 +1,3 @@
-import { type } from 'os';
 import { User } from 'src/users/entities/user.entity';
 import {
     BaseEntity,

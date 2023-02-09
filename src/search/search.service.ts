@@ -18,7 +18,14 @@ export class SearchService {
                 { region: Like(`%${input.region}`) },
                 { pays: Like(`%${input.pays}`) },
                 { username: Like(`%${input.username}`) },
-                { langage: { langage_1: Like(`%${input.langage}`) } },
+                {
+                    langage: {
+                        langage_1: Like(`%${input.langage}`),
+                        langage_2: Like(`%${input.langage}`),
+                        langage_4: Like(`%${input.langage}`),
+                        langage_3: Like(`%${input.langage}`),
+                    },
+                },
             ],
         });
     }
