@@ -53,7 +53,6 @@ export class CompetencesController {
       });
     }
   }
-
   @Get()
   findAll() {
     return this.competencesService.findAll();

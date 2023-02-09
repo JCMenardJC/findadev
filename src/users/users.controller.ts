@@ -65,7 +65,6 @@ export class UsersController {
     @Get('/comptePerso')
     async findOne(@Request() req) {
         const findId = await this.usersService.findOne(req.user.user_id);
-        console.log(findId);
 
         return {
             status: EStatus.OK,

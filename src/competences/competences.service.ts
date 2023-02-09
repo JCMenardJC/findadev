@@ -40,7 +40,6 @@ export class CompetencesService {
       return findCompetence;
     }
   }
-
   async findOneById(id: number) {
     const findCompetence = await Competence.findOne({
       where: {
@@ -72,7 +71,6 @@ export class CompetencesService {
       }
     }
   }
-
   async remove(id: number) {
     const idCompetence = await Competence.findOneBy({ id: id });
     if (!idCompetence) {

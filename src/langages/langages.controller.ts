@@ -17,7 +17,7 @@ import { EMessageStatus, EStatus } from 'src/constants/enum';
 
 @Controller('langages')
 export class LangagesController {
-        constructor(private readonly langagesService: LangagesService) {}
+        constructor(private readonly langagesService: LangagesService) { }
 
         @UseGuards(JwtAuthGuard)
         @Post()
