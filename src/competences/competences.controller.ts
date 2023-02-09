@@ -27,29 +27,29 @@ export class CompetencesController {
                 @Request() req,
                 @Res() res: Response
         ) {
-                console.log(req.user.user_id);
+                console.log('iduser', req.user.user_id);
 
-                const verifUser = await this.competencesService.findOneById(
+                /* const verifUser = await this.competencesService.findOneById(
                         req.user.user_id
                 );
-                console.log(verifUser);
+                console.log('testComp', verifUser);
 
                 if (verifUser) {
                         res.status(401).json({
                                 status: '401',
                                 message: 'This user has already post his competences !!',
                         });
-                } else {
-                        await this.competencesService.create(
-                                createCompetenceDto,
-                                req.user.user_id
-                        );
-                        res.status(201).json({
-                                status: '201',
-                                message: 'Success',
-                                data: createCompetenceDto,
-                        });
-                }
+                } else { */
+                await this.competencesService.create(
+                        createCompetenceDto,
+                        req.user.user_id
+                );
+                res.status(201).json({
+                        status: '201',
+                        message: 'Success',
+                        data: createCompetenceDto,
+                });
+                //}
         }
 
         @Get()

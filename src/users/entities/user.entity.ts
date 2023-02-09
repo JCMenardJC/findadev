@@ -47,7 +47,7 @@ export class User extends BaseEntity {
         @Column({ type: 'varchar' })
         pays: string;
 
-        @OneToOne(() => Langage, (langage) => langage.id, { eager: true })
+        @OneToOne(() => Langage, (langage) => langage.user)
         @JoinColumn()
         langage: Langage;
 }

@@ -11,7 +11,7 @@ export class LangagesService {
         ): Promise<Langage | undefined> {
                 const newLangage = new Langage();
 
-                newLangage.user = user_id;
+                newLangage.user.id = user_id;
                 let i = 1;
                 while (createLangageDto[`langage_${i}`]) {
                         newLangage[`langage_${i}`] =
@@ -28,11 +28,11 @@ export class LangagesService {
         }
 
         async findAll(): Promise<Langage[] | undefined> {
-                const data = await Langage.find({
+                const data = await Langage.find(/* {
                         select: {
                                 user: false,
                         },
-                });
+                } */);
                 if (data[0]) {
                         return data;
                 }
@@ -40,7 +40,9 @@ export class LangagesService {
         }
 
         async findOnefilter(user: number): Promise<any | undefined> {
-                const dataUser = await Langage.findOneBy({ user });
+                const dataUser = await Langage.findOneBy({
+                        user: { id: user },
+                });
 
                 //fromEntries pour transformer le tableau obtenu par entries de l'objet cible que j'ai filtré pour obtenir seulement la donnée voulue
                 const test = Object.fromEntries(
@@ -57,7 +59,7 @@ export class LangagesService {
         async update(user: number, updateLangageDto: UpdateLangageDto) {
                 const data = await this.findOnefilter(user);
 
-                await Langage.update(data.id, updateLangageDto);
+                //await Langage.update(data.id, updateLangageDto);
 
                 const dataUpdated = await this.findOnefilter(user);
 
@@ -69,7 +71,7 @@ export class LangagesService {
 
         async remove(user: number): Promise<Langage | undefined> {
                 const save = await this.findOnefilter(user);
-                await Langage.delete({ user });
+                await Langage.delete({ user: { id: user } });
                 const verif = await this.findOnefilter(user);
                 if (verif) {
                         return undefined;

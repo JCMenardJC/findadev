@@ -14,10 +14,14 @@ import { UpdateLangageDto } from './dto/update-langage.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Langage } from './entities/langage.entity';
 import { EMessageStatus, EStatus } from 'src/constants/enum';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('langages')
 export class LangagesController {
-        constructor(private readonly langagesService: LangagesService) {}
+        constructor(
+                private readonly langagesService: LangagesService,
+                private readonly usersService: UsersService
+        ) {}
 
         @UseGuards(JwtAuthGuard)
         @Post()
@@ -28,6 +32,8 @@ export class LangagesController {
                 const dataCheck = await Langage.findOneBy({
                         user: req.user.user_id,
                 });
+                console.log(dataCheck);
+
                 if (dataCheck) {
                         return {
                                 status: EStatus.FAIL,
@@ -40,7 +46,7 @@ export class LangagesController {
                 );
 
                 return {
-                        status: EStatus.FAIL,
+                        status: EStatus.OK,
                         message: EMessageStatus.createdOK,
                         data: data,
                 };

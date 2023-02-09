@@ -10,17 +10,19 @@ import {
         Unique,
 } from 'typeorm';
 
-@Unique(['user'])
 @Entity()
 export class Langage extends BaseEntity {
+        static findAll() {
+                throw new Error('Method not implemented.');
+        }
         @PrimaryGeneratedColumn()
         id: number;
-        @OneToOne(() => User, (user) => user.id, {
+        @OneToOne(() => User, {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
+                eager: true,
         })
-        @JoinColumn()
-        user: number;
+        user: User;
 
         @Column('varchar')
         langage_1: string;

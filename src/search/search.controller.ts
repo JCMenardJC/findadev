@@ -5,7 +5,8 @@ import { SearchService } from './search.service';
 @Controller('search')
 export class SearchController {
         constructor(private readonly searchService: SearchService) {}
-        @Get()
+
+        @Get('ville')
         async searchByVille(@Body() input: searchByVille) {
                 const listDevByVille = await this.searchService.findByVille(
                         input.ville
@@ -14,4 +15,9 @@ export class SearchController {
 
                 return listDevByVille;
         }
+
+        /* @Get('langages')
+        async searchByLangage(@Body() input: any) {
+                return await this.searchService.findByLangage(input);
+        } */
 }

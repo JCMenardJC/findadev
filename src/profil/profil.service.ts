@@ -8,7 +8,9 @@ import { ProfilDto } from './profil-dto';
 @Injectable()
 export class ProfilService {
         async findOnefilter(user: number): Promise<any | undefined> {
-                const dataUser = await Langage.findOneBy({ user });
+                const dataUser = await Langage.findOneBy({
+                        user: { id: user },
+                });
 
                 //fromEntries pour transformer le tableau obtenu par entries de l'objet cible que j'ai filtré pour obtenir seulement la donnée voulue
                 const test = Object.fromEntries(
@@ -50,7 +52,9 @@ export class ProfilService {
                 );
                 newProfil.competences = newCompetence;
 
-                const dataLangage = await Langage.findOneBy({ user: user_id });
+                const dataLangage = await Langage.findOneBy({
+                        user: { id: user_id },
+                });
                 const newLangage = Object.fromEntries(
                         Object.entries(dataLangage).filter((data) => data[1])
                 );

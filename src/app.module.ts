@@ -25,7 +25,7 @@ import { FriendsModule } from './friends/friends.module';
                         database: process.env.DB_NAME,
                         entities: ['dist/**/*.entity{ .ts,.js}'],
                         synchronize: true,
-                        logging: false,
+                        logging: true,
                 }),
 
                 LangagesModule,
