@@ -16,12 +16,13 @@ export class Competence extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => User, (user) => user.id, {
+  @OneToOne(() => User, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
+    //eager: true,
   })
   @JoinColumn()
-  user: number;
+  user: User;
 
   @Column({ type: "varchar" })
   competence1: string;
