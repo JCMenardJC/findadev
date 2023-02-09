@@ -12,10 +12,12 @@ import {
 } from "@nestjs/common";
 import { Response } from "express";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { EMessageStatus, EStatus } from "src/constants/enum";
 import { UsersService } from "src/users/users.service";
 import { CompetencesService } from "./competences.service";
 import { CreateCompetenceDto } from "./dto/create-competence.dto";
 import { UpdateCompetenceDto } from "./dto/update-competence.dto";
+import { Competence } from "./entities/competence.entity";
 
 @Controller("competences")
 export class CompetencesController {
@@ -63,12 +65,30 @@ export class CompetencesController {
     return this.competencesService.findOneById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
-  update(
-    @Param("id") id: string,
-    @Body() updateCompetenceDto: UpdateCompetenceDto
+  async update(
+    @Body() updateCompetenceDto: UpdateCompetenceDto,
+    @Request() req
   ) {
-    return this.competencesService.update(+id, updateCompetenceDto);
+    const dataCheck = await Competence.findOneBy(req.user.user_id);
+
+    if (!dataCheck) {
+      return {
+        status: EStatus.FAIL,
+        message:
+          EMessageStatus.Unknown + `Vous n'avez aucune compétence connues !!`,
+      };
+    }
+    const dataUpdate = this.competencesService.update(
+      req.user.user_id,
+      updateCompetenceDto
+    );
+    return {
+      status: EStatus.OK,
+      message: EMessageStatus.updateOK,
+      dataUpdated: dataUpdate,
+    };
   }
 
   @Delete(":id")

@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsString, IsOptional, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsNumber } from "class-validator";
+import { User } from "src/users/entities/user.entity";
 
 export class CreateCompetenceDto {
   @IsOptional()
-  @IsNumber()
-  user: number;
+  user: User;
 
   @IsNotEmpty()
   @IsString()
