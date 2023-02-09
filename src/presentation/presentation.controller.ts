@@ -17,6 +17,7 @@ import { UpdatePresentationDto } from './dto/update-presentation.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { EStatus } from 'src/constants/enum';
 import { Presentation } from './entities/presentation.entity';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 
 
 /**
@@ -27,13 +28,21 @@ import { Presentation } from './entities/presentation.entity';
  * * **.findPresentationUpdate()** : Contrôle préalable à la modification d'un order par son ID
  * * **.remove()**: Contrôle préalable à la suppression de la "présentation" de l'user
  */
+@ApiTags('Présentations')
 @Controller('presentation')
 export class PresentationController {
   constructor(private readonly presentationService: PresentationService) { }
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() createPresentationDto: CreatePresentationDto) {
+  async create(@Body() createPresentationDto: CreatePresentationDto, @Request() req) {
+    const verification = await Presentation.findOneBy(req.user.user_id);
+    if (verification) {
+      return {
+        status: EStatus.ERROR,
+        message: "action non-autororisée : Une seul présentation par Utilisateur"
+      }
+    }
     const data = await this.presentationService.createPresentation(
       createPresentationDto,
     );
@@ -46,13 +55,12 @@ export class PresentationController {
 
 
   @Get()
-  findAll() {
-    const data = this.presentationService.findAllPresentation();
-    if (data[0]) {
+  async findAll() {
+    const data = await this.presentationService.findAllPresentation();
+    if (data.length != 0) {
       return data;
     }
     return {
-
       status: EStatus.ERROR,
       message: "il n'y a pas de présentation disponible"
 

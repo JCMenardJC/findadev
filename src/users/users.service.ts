@@ -4,11 +4,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 
+
 @Injectable()
 export class UsersService {
     async register(createUserDto: CreateUserDto) {
         const user = new User();
-
         user.mail = createUserDto.mail;
         user.nom = createUserDto.nom;
         user.prenom = createUserDto.prenom;
@@ -20,9 +20,20 @@ export class UsersService {
         user.region = createUserDto.region;
         user.departement = createUserDto.departement;
         user.pays = createUserDto.pays;
+
+        const latlng = await this.searchLatLng(user)
+
         await User.save(user);
         return user;
     }
+
+     async searchLatLng(user: User) {
+        const result = await fetch(`https://geocode.maps.co/search?q={${user.zipCode} }`)
+        console.log('test1', result);
+
+
+        return result;
+    } 
     async findAll(): Promise<User[] | undefined> {
         const data = await User.find({
             relations: {

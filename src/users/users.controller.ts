@@ -15,9 +15,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { EStatus } from 'src/constants/enum';
 
+
 @Controller('users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) { }
 
     @Post()
     async create(@Body() createUserDto: CreateUserDto) {
@@ -47,6 +48,16 @@ export class UsersController {
             data: userCreated,
         };
     }
+
+    @Get()
+    async test(@Request() req) {
+        const search = await this.usersService.searchLatLng(req);
+        console.log(search);
+
+    }
+
+
+
     @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
