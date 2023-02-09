@@ -3,7 +3,7 @@ import {
   BaseEntity,
   Column,
   Entity,
-  ManyToOne,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -12,9 +12,6 @@ import {
 export class Presentation extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @ManyToOne(() => User, (user) => user.id)
-  user: number;
 
   @Column({ nullable: false })
   langage: string;
@@ -33,4 +30,12 @@ export class Presentation extends BaseEntity {
 
   @Column()
   hobbies: string;
+
+
+  @OneToOne(() => User, (user) => user.id, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn()
+  user: number;
 }

@@ -57,13 +57,10 @@ export class PresentationService {
   }
 
   async removePresentation(user: number): Promise<Presentation | undefined> {
-    const savePresentation = await Presentation.findOneBy({ user });
-    await Presentation.delete({ user });
-    const verifPresentation = await Presentation.findOneBy({ user });
-    if (verifPresentation) {
-      return undefined;
-    }
-    return savePresentation;
+    const deletePresentation = await Presentation.findOneBy({ user: user });
+    Presentation.remove(deletePresentation);
+
+    return deletePresentation;
   }
 
 }
