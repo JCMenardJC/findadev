@@ -48,7 +48,16 @@ export class PresentationController {
   @Get()
   findAll() {
     const data = this.presentationService.findAllPresentation();
-    return data;
+    if (data[0]) {
+      return data;
+    }
+    return {
+
+      status: EStatus.ERROR,
+      message: "il n'y a pas de présentation disponible"
+
+
+    }
   }
 
 
