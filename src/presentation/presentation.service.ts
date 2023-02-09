@@ -3,6 +3,15 @@ import { CreatePresentationDto } from './dto/create-presentation.dto';
 import { UpdatePresentationDto } from './dto/update-presentation.dto';
 import { Presentation } from './entities/presentation.entity';
 
+
+/**
+ * Class permettant la gestion des requètes SQL pour les "présentation"
+ * * **.createPresentation()** :ajoute un nouvelle "présentation" à la BDD
+ * * **.findAllPresentation()** : recupère toutes les "présentation" de tout les "Users"
+ * * **.findOnePresentation()** : recupère une "présentation" par ID de présentation
+ * * **.updatePresentation()** : modifie la "présentation" du User connecté
+ * * **.removePresentation()** : supprime la "présentation" du User connecté
+ */
 @Injectable()
 export class PresentationService {
   async createPresentation(createPresentationDto: CreatePresentationDto) {

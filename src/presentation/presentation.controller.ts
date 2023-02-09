@@ -18,6 +18,15 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { EStatus } from 'src/constants/enum';
 import { Presentation } from './entities/presentation.entity';
 
+
+/**
+ * Class permettant le contrôle des données entrantes et la gestion des erreurs pour les requêtes "présentation"
+ * * **.create()** : Contrôle préalable à l'ajout d'une nouvelle "présentation"
+ * * **.findAll()** : Contrôle préalable à la récupération de toutes les "présentation"
+ * * **.findOne()** : Contrôle préalable à la récupération d'une "présentation" par son ID
+ * * **.findPresentationUpdate()** : Contrôle préalable à la modification d'un order par son ID
+ * * **.remove()**: Contrôle préalable à la suppression de la "présentation" de l'user
+ */
 @Controller('presentation')
 export class PresentationController {
   constructor(private readonly presentationService: PresentationService) { }
