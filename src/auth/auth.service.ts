@@ -18,7 +18,6 @@ export class AuthService {
         });
 
         const verifPassword = await bcrypt.compare(password, user[0].password);
-        console.log(verifPassword);
 
         if (user && verifPassword) {
             const { password, ...result } = user[0];
@@ -27,6 +26,7 @@ export class AuthService {
         }
         return null;
     }
+
     async login(user: any) {
         const payload = { username: user.username, sub: user.id };
 

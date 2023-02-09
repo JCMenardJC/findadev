@@ -5,7 +5,7 @@ import {
         Column,
         Entity,
         JoinColumn,
-        ManyToOne,
+        OneToOne,
         PrimaryGeneratedColumn,
         Unique,
 } from 'typeorm';
@@ -15,7 +15,7 @@ import {
 export class Langage extends BaseEntity {
         @PrimaryGeneratedColumn()
         id: number;
-        @ManyToOne(() => User, (user) => user.id, {
+        @OneToOne(() => User, (user) => user.id, {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
         })
