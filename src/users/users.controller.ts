@@ -4,9 +4,7 @@ import {
     Post,
     Body,
     Patch,
-    Param,
     Delete,
-    ParseIntPipe,
     UseGuards,
     NotFoundException,
     Request,
@@ -15,9 +13,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { User } from './entities/user.entity';
 import { EStatus } from 'src/constants/enum';
-import { request } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -41,7 +37,7 @@ export class UsersController {
             return {
                 status: EStatus.ERROR,
                 message:
-                    'Le mail ou le username saisie existent déjà ,veuillez vous connectez, ou bien corriger vos données saisies ',
+                    'Le mail, le username  saisie existent déjà ,veuillez vous connectez, ou bien corriger vos données saisies ',
             };
         }
         const userCreated = await this.usersService.register(createUserDto);
