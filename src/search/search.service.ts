@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Langage } from 'src/langages/entities/langage.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Like } from 'typeorm';
 import { search } from './dto/search.dto';
@@ -28,9 +29,9 @@ export class SearchService {
                 });
         }
 
-        async findByLangage(langage: string): Promise<User[]> {
-                const data = await User.findBy({ langage: true });
+        async findByLangage(langage: string): Promise<Langage[]> {
+                const data = await Langage.findAndCountBy({ user: true });
 
-                return data;
+                return data[0];
         }
 }

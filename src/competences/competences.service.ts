@@ -51,25 +51,17 @@ export class CompetencesService {
     return findCompetence;
   }
 
-  async update(id: number, updateCompetenceDto: UpdateCompetenceDto) {
-    const competenceChanged = await Competence.findBy({ id });
-    if (
-      updateCompetenceDto.competence1 == competenceChanged[0].competence1 ||
-      updateCompetenceDto.competence2 == competenceChanged[0].competence2 ||
-      updateCompetenceDto.competence3 == competenceChanged[0].competence3 ||
-      updateCompetenceDto.competence4 == competenceChanged[0].competence4 ||
-      updateCompetenceDto.competence5 == competenceChanged[0].competence5 ||
-      updateCompetenceDto.competence6 == competenceChanged[0].competence6
-    ) {
-      return `pas de compétences rentrées`;
-    } else {
-      //await Competence.update(id, updateCompetenceDto);
-      if (competenceChanged) {
-        return competenceChanged;
-      } else {
-        return undefined;
-      }
+  async update(user: number, updateCompetenceDto: UpdateCompetenceDto) {
+    const data = await Competence.findOneBy({ user: { id: user } });
+
+    await Competence.update(data.id, updateCompetenceDto);
+
+    const dataUpdated = await Competence.findOneBy({ user: { id: user } });
+
+    if (dataUpdated) {
+      return dataUpdated;
     }
+    return undefined;
   }
   async remove(id: number) {
     const idCompetence = await Competence.findOneBy({ id: id });
