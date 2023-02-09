@@ -10,9 +10,9 @@ export class SearchService {
                 });
         }
 
-        /* async findByLangage(langage: string): Promise<User[]> {
+        async findByLangage(langage: string): Promise<User[]> {
                 const langageUsers = await User.findBy({ langage: true });
 
                 return langageUsers;
-        } */
+        }
 }

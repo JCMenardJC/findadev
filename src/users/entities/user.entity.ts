@@ -1,4 +1,4 @@
-import { Exclude } from 'class-transformer';
+import { Competence } from 'src/competences/entities/competence.entity';
 import { Langage } from 'src/langages/entities/langage.entity';
 import {
         BaseEntity,
@@ -47,7 +47,13 @@ export class User extends BaseEntity {
         @Column({ type: 'varchar' })
         pays: string;
 
-        @OneToOne(() => Langage, (langage) => langage.user)
+        @OneToOne(() => Langage, (langage) => langage.id, { eager: true })
         @JoinColumn()
         langage: Langage;
+
+        @OneToOne(() => Competence, (competence) => competence.id, {
+                eager: true,
+        })
+        @JoinColumn()
+        competence: Competence;
 }

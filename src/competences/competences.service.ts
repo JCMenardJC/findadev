@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCompetenceDto } from './dto/create-competence.dto';
-import { UpdateCompetenceDto } from './dto/update-competence.dto';
-import { Competence } from './entities/competence.entity';
+import { Injectable } from "@nestjs/common";
+import { User } from "src/users/entities/user.entity";
+import { CreateCompetenceDto } from "./dto/create-competence.dto";
+import { UpdateCompetenceDto } from "./dto/update-competence.dto";
+import { Competence } from "./entities/competence.entity";
 
 @Injectable()
 export class CompetencesService {
-  create(createCompetenceDto: CreateCompetenceDto, user: number) {
+  create(createCompetenceDto: CreateCompetenceDto, user: User) {
     const newCompetence = new Competence();
     newCompetence.user = user;
     newCompetence.competence1 = createCompetenceDto.competence1;
@@ -34,14 +35,19 @@ export class CompetencesService {
       competence6: competence,
     });
     if (!findCompetence) {
-      return 'La compétence recherchée n existe pas';
+      return "La compétence recherchée n existe pas";
     } else {
       return findCompetence;
     }
   }
-
-  async findOneById(user: number) {
-    const findCompetence = await Competence.findOneBy({ user });
+  async findOneById(id: number) {
+    const findCompetence = await Competence.findOne({
+      where: {
+        user: {
+          id: id,
+        },
+      },
+    });
     return findCompetence;
   }
 
@@ -57,7 +63,7 @@ export class CompetencesService {
     ) {
       return `pas de compétences rentrées`;
     } else {
-      await Competence.update(id, updateCompetenceDto);
+      //await Competence.update(id, updateCompetenceDto);
       if (competenceChanged) {
         return competenceChanged;
       } else {
@@ -65,11 +71,10 @@ export class CompetencesService {
       }
     }
   }
-
   async remove(id: number) {
     const idCompetence = await Competence.findOneBy({ id: id });
     if (!idCompetence) {
-      return 'La compétence recherchée n existe pas';
+      return "La compétence recherchée n existe pas";
     }
     await Competence.remove(idCompetence);
     return idCompetence;

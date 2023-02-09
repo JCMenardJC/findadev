@@ -20,8 +20,9 @@ export class Langage extends BaseEntity {
         @OneToOne(() => User, {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
-                eager: true,
+                //eager: true,
         })
+        @JoinColumn()
         user: User;
 
         @Column('varchar')

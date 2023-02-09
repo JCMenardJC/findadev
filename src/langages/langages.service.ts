@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'src/users/entities/user.entity';
 import { CreateLangageDto } from './dto/create-langage.dto';
 import { UpdateLangageDto } from './dto/update-langage.dto';
 import { Langage } from './entities/langage.entity';
@@ -7,11 +8,11 @@ import { Langage } from './entities/langage.entity';
 export class LangagesService {
         async create(
                 createLangageDto: CreateLangageDto,
-                user_id: number
+                user: User
         ): Promise<Langage | undefined> {
                 const newLangage = new Langage();
 
-                newLangage.user.id = user_id;
+                newLangage.user = user;
                 let i = 1;
                 while (createLangageDto[`langage_${i}`]) {
                         newLangage[`langage_${i}`] =
@@ -19,7 +20,7 @@ export class LangagesService {
                         i++;
                 }
                 await Langage.save(newLangage);
-                const newData = await this.findOnefilter(user_id);
+                const newData = await this.findOnefilter(user.id);
 
                 if (newData) {
                         return newData;

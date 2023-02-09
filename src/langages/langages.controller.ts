@@ -20,7 +20,7 @@ import { UsersService } from 'src/users/users.service';
 export class LangagesController {
         constructor(
                 private readonly langagesService: LangagesService,
-                private readonly usersService: UsersService
+                private readonly userService: UsersService
         ) {}
 
         @UseGuards(JwtAuthGuard)
@@ -32,7 +32,7 @@ export class LangagesController {
                 const dataCheck = await Langage.findOneBy({
                         user: req.user.user_id,
                 });
-                console.log(dataCheck);
+                const user = await this.userService.findOne(req.user.user_id);
 
                 if (dataCheck) {
                         return {
@@ -42,7 +42,7 @@ export class LangagesController {
                 }
                 const data = await this.langagesService.create(
                         createLangageDto,
-                        req.user.user_id
+                        user
                 );
 
                 return {

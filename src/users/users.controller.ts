@@ -52,7 +52,7 @@ export class UsersController {
                         data: userCreated,
                 };
         }
-
+        @UseGuards(JwtAuthGuard)
         @Get()
         async findAll() {
                 const userAllFind = await this.usersService.findAll();
