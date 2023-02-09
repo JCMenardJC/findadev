@@ -52,11 +52,11 @@ export class CompetencesService {
   }
 
   async update(user: number, updateCompetenceDto: UpdateCompetenceDto) {
-    const data = await this.findOneById(user);
+    const data = await Competence.findOneBy({ user: { id: user } });
 
     await Competence.update(data.id, updateCompetenceDto);
 
-    const dataUpdated = await this.findOneById(user);
+    const dataUpdated = await Competence.findOneBy({ user: { id: user } });
 
     if (dataUpdated) {
       return dataUpdated;

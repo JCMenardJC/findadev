@@ -33,12 +33,9 @@ export class CompetencesController {
     @Request() req,
     @Res() res: Response
   ) {
-    console.log(req.user.user_id);
-
     const verifUser = await this.competencesService.findOneById(
       req.user.user_id
     );
-    console.log(verifUser);
     const user = await this.usersService.findOne(req.user.user_id);
 
     if (verifUser) {
@@ -71,7 +68,9 @@ export class CompetencesController {
     @Body() updateCompetenceDto: UpdateCompetenceDto,
     @Request() req
   ) {
-    const dataCheck = await Competence.findOneBy(req.user.user_id);
+    const dataCheck = await Competence.findOneBy({
+      user: { id: req.user.user_id },
+    });
 
     if (!dataCheck) {
       return {
@@ -80,7 +79,7 @@ export class CompetencesController {
           EMessageStatus.Unknown + `Vous n'avez aucune compétence connues !!`,
       };
     }
-    const dataUpdate = this.competencesService.update(
+    const dataUpdate = await this.competencesService.update(
       req.user.user_id,
       updateCompetenceDto
     );
