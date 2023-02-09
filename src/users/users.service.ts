@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
-import { Like } from 'typeorm';
+
 @Injectable()
 export class UsersService {
     async register(createUserDto: CreateUserDto) {
@@ -25,8 +25,16 @@ export class UsersService {
     }
     async findAll(): Promise<User[] | undefined> {
         const data = await User.find({
+            relations: {
+                langage: true,
+                competence: true,
+            },
             select: {
-                password: false,
+                nom: true,
+                prenom: true,
+                city: true,
+                departement: true,
+                region: true,
             },
         });
         if (data[0]) {
