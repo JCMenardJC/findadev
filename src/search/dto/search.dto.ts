@@ -1,6 +1,7 @@
 import { IsString, IsOptional } from 'class-validator';
+import { Langage } from 'src/langages/entities/langage.entity';
 
-export class search {
+export class searchDto {
     @IsString()
     @IsOptional()
     ville: string;
@@ -17,8 +18,19 @@ export class search {
     @IsString()
     username: string;
     @IsOptional()
+    langage: Langage;
+    @IsOptional()
     @IsString()
-    langage: string;
+    /*  langage_2: string;
+    @IsOptional()
+    @IsString()
+    langage_3: string;
+    @IsOptional()
+    @IsString()
+    langage_1: string;
+    @IsOptional()
+    @IsString()
+    langage_1: string; */
     @IsOptional()
     @IsString()
     competence: string;
