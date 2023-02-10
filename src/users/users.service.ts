@@ -15,7 +15,6 @@ export class UsersService {
         const loc = await this.httpService.axiosRef.get(`https://geocode.maps.co/search?q=${createUserDto.zipCode}+${createUserDto.pays}`)
         const lat = loc.data[1].lat;
         const lon = loc.data[1].lon;
-        console.log("loc", lat, lon);
         
         const user = new User();
         user.mail = createUserDto.mail;
