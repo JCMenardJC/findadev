@@ -18,7 +18,6 @@ import { User } from "src/users/entities/user.entity";
 import { Like } from "typeorm";
 import { EMessageStatus, EStatus } from "src/constants/enum";
 import { Friend } from "./entities/friend.entity";
-import { UsersService } from "src/users/users.service";
 
 @Controller("friends")
 export class FriendsController {
@@ -72,7 +71,7 @@ export class FriendsController {
       liste: pressAsking,
     };
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get(":id")
   findOneRequest(@Param("id") id: string) {
     return this.friendsService.findById(id);
