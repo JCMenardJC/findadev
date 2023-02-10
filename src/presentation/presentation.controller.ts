@@ -27,7 +27,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger/dist/decorators';
  * * **.findPresentationUpdate()** : Contrôle préalable à la modification d'un order par son ID
  * * **.remove()**: Contrôle préalable à la suppression de la "présentation" de l'user
  */
-@ApiBearerAuth('presentation')
+@ApiBearerAuth()
 @ApiTags('Présentations')
 @Controller('presentation')
 export class PresentationController {

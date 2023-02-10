@@ -17,7 +17,7 @@ import { EMessageStatus, EStatus } from 'src/constants/enum';
 import { UsersService } from 'src/users/users.service';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
-@ApiBearerAuth('langages')
+@ApiBearerAuth()
 @ApiTags('langages')
 @Controller('langages')
 export class LangagesController {

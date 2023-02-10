@@ -19,7 +19,7 @@ import { EMessageStatus, EStatus } from 'src/constants/enum';
 import { Friend } from './entities/friend.entity';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
-@ApiBearerAuth('friends')
+@ApiBearerAuth()
 @ApiTags('friends')
 @Controller('friends')
 export class FriendsController {

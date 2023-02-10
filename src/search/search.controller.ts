@@ -4,7 +4,7 @@ import { searchDto } from './dto/search.dto';
 import { SearchCompetenceDto } from './dto/searchCompetence.dto';
 import { SearchLangageDto } from './dto/searchLangage.dto';
 import { SearchService } from './search.service';
-@ApiBearerAuth('search')
+@ApiBearerAuth()
 @ApiTags('Rechercher')
 @Controller('search')
 export class SearchController {

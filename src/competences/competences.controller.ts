@@ -20,7 +20,6 @@ import { CreateCompetenceDto } from './dto/create-competence.dto';
 import { UpdateCompetenceDto } from './dto/update-competence.dto';
 import { Competence } from './entities/competence.entity';
 
-@ApiBearerAuth('competences')
 @ApiTags('competences')
 @Controller('competences')
 export class CompetencesController {
@@ -55,6 +54,7 @@ export class CompetencesController {
             });
         }
     }
+
     @Get()
     findAll() {
         return this.competencesService.findAll();
