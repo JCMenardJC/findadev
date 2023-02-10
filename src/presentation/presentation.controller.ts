@@ -56,7 +56,7 @@ export class PresentationController {
             return data;
         }
     }
-
+    @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
         const data = await this.presentationService.findAllPresentation();
@@ -68,7 +68,7 @@ export class PresentationController {
             message: "il n'y a pas de présentation disponible",
         };
     }
-
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async findOne(@Param('id') id: number) {
         const data = await this.presentationService.findOnePresentation(+id);

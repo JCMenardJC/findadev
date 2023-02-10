@@ -1,6 +1,7 @@
 import { Body, Get, Controller } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { searchDto } from './dto/search.dto';
+import { SearchCompetenceDto } from './dto/searchCompetence.dto';
 import { SearchLangageDto } from './dto/searchLangage.dto';
 import { SearchService } from './search.service';
 @ApiBearerAuth('search')
@@ -20,6 +21,13 @@ export class SearchController {
     @Get('langages')
     async searchByLangage(@Body() input: SearchLangageDto) {
         const data = await this.searchService.findByLangage(input.langage);
+        return data;
+    }
+    @Get('competence')
+    async searchByCompetence(@Body() input: SearchCompetenceDto) {
+        const data = await this.searchService.findByCompetence(
+            input.competence,
+        );
         return data;
     }
 }

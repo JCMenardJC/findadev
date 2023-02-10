@@ -60,6 +60,11 @@ export class FriendsController {
         };
     }
 
+    @Get(':id')
+    findOneRequest(@Param('id') id: string) {
+        return this.friendsService.findById(id);
+    }
+
     @UseGuards(JwtAuthGuard)
     @Get()
     async findAll(@Request() req) {
@@ -72,11 +77,6 @@ export class FriendsController {
             message: `Voici les demandes d'amis reçus avec par username et numéro de demande :`,
             liste: pressAsking,
         };
-    }
-
-    @Get(':id')
-    findOneRequest(@Param('id') id: string) {
-        return this.friendsService.findById(id);
     }
 
     //Accepter la demande d'ami.e
@@ -96,17 +96,7 @@ export class FriendsController {
                     `Cette demande d'ami n'existe pas!!`,
             };
         }
-        const dataUpdate = await this.friendsService.update(
-            id,
-            updateFriendDto,
-        );
-        return {
-            status: EStatus.OK,
-            message: `Demande d'ami acceptée avec : `,
-            dataUpdated: dataUpdate,
-        };
     }
-
     //le demandeur et receveur peuvent annuler la demande
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
