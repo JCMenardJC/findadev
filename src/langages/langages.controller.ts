@@ -15,7 +15,10 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Langage } from './entities/langage.entity';
 import { EMessageStatus, EStatus } from 'src/constants/enum';
 import { UsersService } from 'src/users/users.service';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('Languages')
 @Controller('langages')
 export class LangagesController {
         constructor(

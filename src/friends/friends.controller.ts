@@ -17,7 +17,10 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from 'src/users/entities/user.entity';
 import { Like } from 'typeorm';
 import { EMessageStatus, EStatus } from 'src/constants/enum';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('Relations')
 @Controller('friends')
 export class FriendsController {
         constructor(private readonly friendsService: FriendsService) {}
