@@ -14,10 +14,14 @@ import { UpdateLangageDto } from './dto/update-langage.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Langage } from './entities/langage.entity';
 import { EMessageStatus, EStatus } from 'src/constants/enum';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('langages')
 export class LangagesController {
-        constructor(private readonly langagesService: LangagesService) { }
+        constructor(
+                private readonly langagesService: LangagesService,
+                private readonly userService: UsersService
+        ) {}
 
         @UseGuards(JwtAuthGuard)
         @Post()
@@ -26,8 +30,10 @@ export class LangagesController {
                 @Request() req
         ) {
                 const dataCheck = await Langage.findOneBy({
-                        user: req.user.user_id,
+                        user: { id: req.user.user_id },
                 });
+                const user = await this.userService.findOne(req.user.user_id);
+
                 if (dataCheck) {
                         return {
                                 status: EStatus.FAIL,
@@ -36,11 +42,11 @@ export class LangagesController {
                 }
                 const data = await this.langagesService.create(
                         createLangageDto,
-                        req.user.user_id
+                        user
                 );
 
                 return {
-                        status: EStatus.FAIL,
+                        status: EStatus.OK,
                         message: EMessageStatus.createdOK,
                         data: data,
                 };
@@ -96,8 +102,10 @@ export class LangagesController {
       return 'vérifiez votre saisie !!';
     } */
 
-                const dataCheck = await Langage.findOneBy(req.user.user_id);
-
+                const dataCheck = await Langage.findOneBy({
+                        user: { id: req.user.user_id },
+                });
+                const id = dataCheck.id;
                 if (!dataCheck) {
                         return {
                                 status: EStatus.FAIL,
@@ -106,6 +114,8 @@ export class LangagesController {
                                         ` Vous n'avez pas de langage connu !!`,
                         };
                 }
+                console.log(updateLangageDto);
+
                 const dataUpdated = await this.langagesService.update(
                         req.user.user_id,
                         updateLangageDto

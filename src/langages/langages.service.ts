@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'src/users/entities/user.entity';
 import { CreateLangageDto } from './dto/create-langage.dto';
 import { UpdateLangageDto } from './dto/update-langage.dto';
 import { Langage } from './entities/langage.entity';
@@ -7,11 +8,11 @@ import { Langage } from './entities/langage.entity';
 export class LangagesService {
         async create(
                 createLangageDto: CreateLangageDto,
-                user_id: number
+                user: User
         ): Promise<Langage | undefined> {
                 const newLangage = new Langage();
 
-                newLangage.user = user_id;
+                newLangage.user = user;
                 let i = 1;
                 while (createLangageDto[`langage_${i}`]) {
                         newLangage[`langage_${i}`] =
@@ -19,7 +20,7 @@ export class LangagesService {
                         i++;
                 }
                 await Langage.save(newLangage);
-                const newData = await this.findOnefilter(user_id);
+                const newData = await this.findOnefilter(user.id);
 
                 if (newData) {
                         return newData;
@@ -28,11 +29,11 @@ export class LangagesService {
         }
 
         async findAll(): Promise<Langage[] | undefined> {
-                const data = await Langage.find({
+                const data = await Langage.find(/* {
                         select: {
                                 user: false,
                         },
-                });
+                } */);
                 if (data[0]) {
                         return data;
                 }
@@ -40,7 +41,9 @@ export class LangagesService {
         }
 
         async findOnefilter(user: number): Promise<any | undefined> {
-                const dataUser = await Langage.findOneBy({ user });
+                const dataUser = await Langage.findOneBy({
+                        user: { id: user },
+                });
 
                 //fromEntries pour transformer le tableau obtenu par entries de l'objet cible que j'ai filtré pour obtenir seulement la donnée voulue
                 const test = Object.fromEntries(
@@ -69,7 +72,7 @@ export class LangagesService {
 
         async remove(user: number): Promise<Langage | undefined> {
                 const save = await this.findOnefilter(user);
-                await Langage.delete({ user });
+                await Langage.delete({ user: { id: user } });
                 const verif = await this.findOnefilter(user);
                 if (verif) {
                         return undefined;

@@ -1,15 +1,29 @@
 import { Body, Get, Controller } from '@nestjs/common';
+import { UsersService } from 'src/users/users.service';
 import { search } from './dto/search.dto';
 import { SearchService } from './search.service';
 
 @Controller('search')
 export class SearchController {
-    constructor(private readonly searchService: SearchService) {}
-    @Get()
-    async searchByVille(@Body() input: search) {
-        const listDevByVille = await this.searchService.findByVille(input);
-        console.log(listDevByVille);
+        constructor(
+                private readonly searchService: SearchService,
+                private readonly usersService: UsersService
+        ) {}
 
-        return listDevByVille;
-    }
+        @Get('ville')
+        async searchByVille(@Body() input: search) {
+                const listDevByVille = await this.searchService.findByVille(
+                        input
+                );
+                console.log(listDevByVille);
+
+                return listDevByVille;
+        }
+
+        @Get('langages')
+        async searchByLangage(@Body() input: any) {
+                console.log(input);
+
+                return await this.searchService.findByLangage(input);
+        }
 }
