@@ -21,9 +21,10 @@ export class SearchController {
         }
 
         @Get('langages')
-        async searchByLangage(@Body() input: any) {
-                console.log(input);
-
-                return await this.searchService.findByLangage(input);
+        async searchByLangage(@Body() input: search) {
+                const data = await this.searchService.findByLangage(
+                        input.langage
+                );
+                return data;
         }
 }
