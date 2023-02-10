@@ -1,28 +1,46 @@
 import { Injectable } from '@nestjs/common';
-import { IsBIC, isNotEmpty, NotEquals } from 'class-validator';
 import { Langage } from 'src/langages/entities/langage.entity';
 import { User } from 'src/users/entities/user.entity';
-import { IsNull, Like, Raw } from 'typeorm';
-import { search } from './dto/search.dto';
+import { ILike } from 'typeorm';
+import { searchDto } from './dto/search.dto';
 
 @Injectable()
 export class SearchService {
-        async findByVille(input: search): Promise<User[]> {
-                return await User.find({
+        async findByVille(input: searchDto): Promise<User[] | any> {
+                const data = await User.find({
                         relations: {
                                 langage: true,
                                 competence: true,
                         },
                         where: [
-                                { city: Like(`%${input.ville}%`) },
-                                { departement: Like(`%${input.departement}%`) },
-                                { region: Like(`%${input.region}`) },
-                                { pays: Like(`%${input.pays}`) },
-                                { username: Like(`%${input.username}`) },
+                                { city: ILike(`%${input.ville}%`) },
                                 {
-                                        langage: {
-                                                langage_1: Like(
-                                                        `%${input.langage}`
+                                        departement: ILike(
+                                                `%${input.departement}%`
+                                        ),
+                                },
+                                { region: ILike(`%${input.region}`) },
+                                { pays: ILike(`%${input.pays}`) },
+                                { username: ILike(`%${input.username}`) },
+                                {
+                                        competence: {
+                                                competence1: ILike(
+                                                        `%${input.competence}`
+                                                ),
+                                                competence2: ILike(
+                                                        `%${input.competence}`
+                                                ),
+                                                competence3: ILike(
+                                                        `%${input.competence}`
+                                                ),
+                                                competence4: ILike(
+                                                        `%${input.competence}`
+                                                ),
+                                                competence5: ILike(
+                                                        `%${input.competence}`
+                                                ),
+                                                competence6: ILike(
+                                                        `%${input.competence}`
                                                 ),
                                         },
                                 },
