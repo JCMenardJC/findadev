@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsPostalCode, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsPostalCode, IsString } from 'class-validator';
 import { Column } from 'typeorm';
 
 export class CreateUserDto {
@@ -46,4 +46,5 @@ export class CreateUserDto {
     @IsString()
     @Column()
     pays: string;
+
 }

@@ -15,9 +15,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { EStatus } from 'src/constants/enum';
 
+
 @Controller('users')
 export class UsersController {
-        constructor(private readonly usersService: UsersService) {}
+        constructor(private readonly usersService: UsersService) { }
 
         @Post()
         async create(@Body() createUserDto: CreateUserDto) {
@@ -42,12 +43,18 @@ export class UsersController {
                 const userCreated = await this.usersService.register(
                         createUserDto
                 );
+
+
+
+
                 return {
                         status: EStatus.OK,
                         message: `Vous étes maintenant enregistrez`,
                         data: userCreated,
                 };
         }
+
+
         @UseGuards(JwtAuthGuard)
         @Get()
         async findAll() {
@@ -58,6 +65,7 @@ export class UsersController {
                         data: userAllFind,
                 };
         }
+
         @UseGuards(JwtAuthGuard)
         @Get('/comptePerso')
         async findOne(@Request() req) {
@@ -66,12 +74,16 @@ export class UsersController {
                 );
                 console.log(findId);
 
+
                 return {
                         status: EStatus.OK,
                         message: `Les données de l'identifiant`,
                         data: findId,
                 };
         }
+
+
+
         @UseGuards(JwtAuthGuard)
         @Patch()
         async update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
@@ -86,6 +98,9 @@ export class UsersController {
                         data: userUpdated,
                 };
         }
+
+
+
         @UseGuards(JwtAuthGuard)
         @Delete()
         async remove(@Request() req) {

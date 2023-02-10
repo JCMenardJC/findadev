@@ -10,7 +10,6 @@ async function bootstrap() {
   .setTitle('Find a Dev')
   .setDescription('Brief Simplon groupe de 4')
   .setVersion('1.0')
-  .addTag('Simplon')
   .build();
 const document = SwaggerModule.createDocument(app, config);
 SwaggerModule.setup('api', app, document);
