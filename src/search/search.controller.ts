@@ -1,7 +1,9 @@
-import { Body, Get, Controller, Post } from '@nestjs/common';
+import { Body, Get, Controller } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { searchDto } from './dto/search.dto';
 import { SearchService } from './search.service';
 
+@ApiTags('Rechercher')
 @Controller('search')
 export class SearchController {
     constructor(private readonly searchService: SearchService) {}
@@ -12,7 +14,7 @@ export class SearchController {
 
         return listDevByVille;
     }
-    @Post()
+    @Get()
     async searchLangage(@Body() input: searchDto) {
         const data = await this.searchService.findByLangage(input);
 

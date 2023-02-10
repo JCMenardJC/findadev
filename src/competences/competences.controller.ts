@@ -10,6 +10,7 @@ import {
         UseGuards,
         Request,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { EMessageStatus, EStatus } from 'src/constants/enum';
@@ -19,6 +20,9 @@ import { CreateCompetenceDto } from './dto/create-competence.dto';
 import { UpdateCompetenceDto } from './dto/update-competence.dto';
 import { Competence } from './entities/competence.entity';
 
+
+
+@ApiTags('Compétences')
 @Controller('competences')
 export class CompetencesController {
         constructor(
