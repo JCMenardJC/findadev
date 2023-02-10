@@ -1,9 +1,9 @@
 import { Body, Get, Controller } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { searchDto } from './dto/search.dto';
 import { SearchLangageDto } from './dto/searchLangage.dto';
 import { SearchService } from './search.service';
-
+@ApiBearerAuth('search')
 @ApiTags('Rechercher')
 @Controller('search')
 export class SearchController {

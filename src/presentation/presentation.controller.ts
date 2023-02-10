@@ -17,7 +17,7 @@ import { UpdatePresentationDto } from './dto/update-presentation.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { EStatus } from 'src/constants/enum';
 import { Presentation } from './entities/presentation.entity';
-import { ApiTags } from '@nestjs/swagger/dist/decorators';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger/dist/decorators';
 
 /**
  * Class permettant le contrôle des données entrantes et la gestion des erreurs pour les requêtes "présentation"
@@ -27,6 +27,7 @@ import { ApiTags } from '@nestjs/swagger/dist/decorators';
  * * **.findPresentationUpdate()** : Contrôle préalable à la modification d'un order par son ID
  * * **.remove()**: Contrôle préalable à la suppression de la "présentation" de l'user
  */
+@ApiBearerAuth('presentation')
 @ApiTags('Présentations')
 @Controller('presentation')
 export class PresentationController {

@@ -14,7 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { EStatus } from 'src/constants/enum';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('users')
 @Controller('users')
@@ -50,7 +50,7 @@ export class UsersController {
             data: userCreated,
         };
     }
-
+    @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
@@ -61,7 +61,7 @@ export class UsersController {
             data: userAllFind,
         };
     }
-
+    @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
     @Get('/comptePerso')
     async findOne(@Request() req) {
@@ -74,7 +74,7 @@ export class UsersController {
             data: findId,
         };
     }
-
+    @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
     @Patch()
     async update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
@@ -89,7 +89,7 @@ export class UsersController {
             data: userUpdated,
         };
     }
-
+    @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
     @Delete()
     async remove(@Request() req) {
