@@ -4,68 +4,33 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { CreatePresentationDto } from './create-presentation.dto';
 
 export class UpdatePresentationDto extends PartialType(CreatePresentationDto) {
+    @ApiProperty()
     @IsString()
     @IsOptional()
     langage: string;
 
-<<<<<<< HEAD
+    @ApiProperty()
     @IsString()
     @IsOptional()
     presentation: string;
-=======
 
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  langage: string;
->>>>>>> 292582ccedc581c74652d7ef1d50e5974ef8f5e5
-
+    @ApiProperty()
     @IsString()
     @IsOptional()
     nationalité: string;
 
-<<<<<<< HEAD
+    @ApiProperty()
     @IsOptional()
     @IsString()
     genre: string;
-=======
 
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  presentation: string;
->>>>>>> 292582ccedc581c74652d7ef1d50e5974ef8f5e5
-
+    @ApiProperty()
     @IsOptional()
     @IsNumber()
     age: number;
 
-<<<<<<< HEAD
+    @ApiProperty()
     @IsOptional()
     @IsString()
     hobbies: string;
-=======
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  nationalité: string;
-
-
-  @ApiProperty()
-  @IsOptional()
-  @IsString()
-  genre: string;
-
-
-  @ApiProperty()
-  @IsOptional()
-  @IsNumber()
-  age: number;
-
-
-  @ApiProperty()
-  @IsOptional()
-  @IsString()
-  hobbies: string;
->>>>>>> 292582ccedc581c74652d7ef1d50e5974ef8f5e5
 }
