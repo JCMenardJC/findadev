@@ -14,10 +14,4 @@ export class SearchController {
 
         return listDevByVille;
     }
-    @Get()
-    async searchLangage(@Body() input: searchDto) {
-        const data = await this.searchService.findByLangage(input);
-
-        return data;
-    }
 }

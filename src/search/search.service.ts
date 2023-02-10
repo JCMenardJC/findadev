@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Langage } from 'src/langages/entities/langage.entity';
 import { User } from 'src/users/entities/user.entity';
-import { ILike } from 'typeorm';
+import { ILike, Like } from 'typeorm';
 import { searchDto } from './dto/search.dto';
 
 @Injectable()
 export class SearchService {
-    async findByVille(input: searchDto): Promise<User[]> {
-        return await User.find({
+    async findByVille(input: searchDto): Promise<User[] | any> {
+        const data = await User.find({
             relations: {
                 langage: true,
                 competence: true,
@@ -18,16 +18,7 @@ export class SearchService {
                 { region: ILike(`%${input.region}`) },
                 { pays: ILike(`%${input.pays}`) },
                 { username: ILike(`%${input.username}`) },
-                {
-                    langage: {
-                        langage_1: ILike(`%${input.langage}`),
-                        langage_2: ILike(`%${input.langage}`),
-                        langage_4: ILike(`%${input.langage}`),
-                        langage_3: ILike(`%${input.langage}`),
-                        langage_5: ILike(`%${input.langage}`),
-                        langage_6: ILike(`%${input.langage}`),
-                    },
-                },
+
                 {
                     competence: {
                         competence1: ILike(`%${input.competence}`),
@@ -40,18 +31,5 @@ export class SearchService {
                 },
             ],
         });
-    }
-
-    async findByLangage(input: searchDto): Promise<Langage[] | any> {
-        const data = await Langage.find({
-            relations: { user: true },
-            select: {
-                id: false,
-            },
-        });
-
-        const test = data.map((data) => Object.values(data).filter(Boolean));
-
-        return test;
     }
 }
