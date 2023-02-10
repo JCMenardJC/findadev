@@ -1,5 +1,4 @@
-import { Body, Get, Controller } from '@nestjs/common';
-import { Post } from '@nestjs/common/decorators/http/request-mapping.decorator';
+import { Body, Post, Controller } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { searchDto } from './dto/search.dto';
 import { SearchCompetenceDto } from './dto/searchCompetence.dto';
