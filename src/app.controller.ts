@@ -18,6 +18,7 @@ export class AppController {
     }
 
     @ApiTags('Controle du token')
+    @ApiBody({ type: LoginDto })
     @UseGuards(JwtAuthGuard)
     @Get('profile')
     getProfile(@Request() req) {
