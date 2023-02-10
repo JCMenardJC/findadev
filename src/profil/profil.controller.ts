@@ -11,7 +11,7 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { ProfilDto } from "./profil-dto";
 import { ProfilService } from "./profil.service";
 
-@ApiBearerAuth("profil")
+@ApiBearerAuth()
 @ApiTags("Profil")
 @Controller("profil")
 export class ProfilController {
