@@ -1,25 +1,34 @@
-import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsOptional } from 'class-validator';
+import { Langage } from 'src/langages/entities/langage.entity';
 
-export class search {
-    @IsString()
-    @IsOptional()
-    ville: string;
-    @IsOptional()
-    @IsString()
-    departement: string;
-    @IsOptional()
-    @IsString()
-    region: string;
-    @IsOptional()
-    @IsString()
-    pays: string;
-    @IsOptional()
-    @IsString()
-    username: string;
-    @IsOptional()
-    @IsString()
-    langage: string;
-    @IsOptional()
-    @IsString()
-    competence: string;
+export class searchDto {
+        @IsString()
+        @IsOptional()
+        @ApiProperty()
+        ville: string;
+        @IsOptional()
+        @IsString()
+        @ApiProperty()
+        departement: string;
+        @IsOptional()
+        @IsString()
+        @ApiProperty()
+        region: string;
+        @IsOptional()
+        @IsString()
+        @ApiProperty()
+        pays: string;
+        @IsOptional()
+        @IsString()
+        @ApiProperty()
+        username: string;
+        @IsOptional()
+        langage: string[];
+        @IsOptional()
+        @IsString()
+        @IsOptional()
+        @IsString()
+        @ApiProperty()
+        competence: string;
 }

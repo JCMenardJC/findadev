@@ -50,13 +50,23 @@ export class User extends BaseEntity {
         @Column({ type: 'varchar' })
         pays: string;
 
+        @Column({ nullable: true, type:'float' })
+        latitude: number
+
+
+        @Column({ nullable: true, type:'float' })
+        longitude: number
+
+
         @OneToOne(() => Langage, (langage) => langage.id, { eager: true })
         @JoinColumn()
         langage: Langage;
 
+
         @OneToOne(() => Competence, (competence) => competence.id, {
                 eager: true,
         })
+
         @JoinColumn()
         competence: Competence;
 }
