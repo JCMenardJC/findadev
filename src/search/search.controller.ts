@@ -1,4 +1,4 @@
-import { Body, Post, Controller } from '@nestjs/common';
+import { Body, Post, Controller, NotFoundException } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { searchDto } from './dto/search.dto';
 import { SearchCompetenceDto } from './dto/searchCompetence.dto';
@@ -13,7 +13,11 @@ export class SearchController {
     @Post('ville')
     async searchByVille(@Body() input: searchDto) {
         const listDevByVille = await this.searchService.findByVille(input);
-        console.log(listDevByVille);
+        if (listDevByVille.length == 0) {
+            throw new NotFoundException(
+                `Aucun utilisateur ne correspond a aucun des critéres de recherche saisies`,
+            );
+        }
 
         return listDevByVille;
     }
@@ -21,6 +25,12 @@ export class SearchController {
     @Post('langages')
     async searchByLangage(@Body() input: SearchLangageDto) {
         const data = await this.searchService.findByLangage(input.langage);
+
+        if (data.length == 0) {
+            throw new NotFoundException(
+                `Aucun utilisateur n'utilisent ce langage`,
+            );
+        }
         return data;
     }
     @Post('competence')
@@ -28,6 +38,11 @@ export class SearchController {
         const data = await this.searchService.findByCompetence(
             input.competence,
         );
+        if (data.length == 0) {
+            throw new NotFoundException(
+                `Aucun utilisateur ne possédent cette compétence`,
+            );
+        }
         return data;
     }
 }

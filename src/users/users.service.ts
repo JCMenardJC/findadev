@@ -37,10 +37,7 @@ export class UsersService {
 
     async findAll(): Promise<User[] | undefined> {
         const data = await User.find({
-            relations: {
-                langage: true,
-                competence: true,
-            },
+           
             select: {
                 nom: true,
                 prenom: true,
