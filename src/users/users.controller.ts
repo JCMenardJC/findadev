@@ -15,7 +15,14 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { EStatus } from 'src/constants/enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-
+/**
+ * Class permettant le contrôle des données entrantes et la gestion des erreurs pour les requêtes "Users"
+ * * **.create()** : Conditions préalables à l'ajout d'une nouvelle "Users"
+ * * **.findAll()** : Conditions préalables à la récupération de toutes les "Users"
+ * * **.findOne()** : Conditions préalables à la consultation d'un compte "Users" par son Token
+ * * **.update()** : Conditions préalables à la modification d'un Users
+ * * **.remove()**: Conditions préalables à la suppression de son compte par un user
+ */
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
