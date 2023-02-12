@@ -20,6 +20,15 @@ import { CreateCompetenceDto } from "./dto/create-competence.dto";
 import { UpdateCompetenceDto } from "./dto/update-competence.dto";
 import { Competence } from "./entities/competence.entity";
 
+/**
+ * Class permettant le contrôle des données entrantes et la gestion des erreurs pour les requêtes "Users"
+ * * **.create()** : Conditions préalables à l'ajout d'une nouvelle "Compétence"
+ * * **.findAll()** : Conditions préalables à la récupération de toutes les "Compétences"
+ * * **.findOne()** : Conditions préalables à la consultation d'une "Compétence" d'un utilisateur par son Token
+ * * **.update()** : Conditions préalables à la modification d'une Compétence
+ * * **.remove()**: Conditions préalables à la suppression d'une "Compétences" par un user
+ */
+
 @ApiBearerAuth()
 @ApiTags("competences")
 @Controller("competences")

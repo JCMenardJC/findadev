@@ -4,6 +4,16 @@ import { CreateCompetenceDto } from "./dto/create-competence.dto";
 import { UpdateCompetenceDto } from "./dto/update-competence.dto";
 import { Competence } from "./entities/competence.entity";
 
+/**
+ * Class permettant la gestion des requêtes SQL pour les "compétences"
+ * * **.create()** :ajoute de nouvelles "compétences" à la BDD
+ * * **.findAll()** : recupère toutes les "compétences" dans la BDD
+ * * **.findByCompetence()** : recupère une "compétence" par son intitulé
+ * * **.findOneById()**:recupère une "compétence" par son ID
+ * * **.update()** : modifie les donnees d'une ou des "compétences" d' un user avec son ID
+ * * **.remove()** : supprime lesdonnees des "compétences" d'un user
+ */
+
 @Injectable()
 export class CompetencesService {
   create(createCompetenceDto: CreateCompetenceDto, user: User) {
